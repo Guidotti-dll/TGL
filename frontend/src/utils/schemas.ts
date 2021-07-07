@@ -10,3 +10,7 @@ export const AuthSchema = yup.object().shape({
     .min(8, "Este campo deve ter no mínimo 8 caracteres")
     .required("Este campo é obrigatório"),
 });
+
+export const SignUpSchema = AuthSchema.shape({
+  name: yup.string().required("Este campo é obrigatório"),
+});

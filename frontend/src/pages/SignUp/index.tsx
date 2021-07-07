@@ -1,13 +1,13 @@
 import HeaderAuth from "../../components/HeaderAuth";
-import LoginAuth from "../../components/LoginAuth";
+import SignUpForm from "../../components/SignUpForm";
 import { AuthContainer } from "../../styles/AuthContainer";
-const AuthPage = () => {
+const SignUpPage: React.FC = () => {
   return (
     <AuthContainer>
       <HeaderAuth />
-      <LoginAuth />
+      <SignUpForm />
     </AuthContainer>
   );
 };
 
-export default AuthPage;
+export default SignUpPage;

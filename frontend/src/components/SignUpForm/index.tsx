@@ -3,27 +3,34 @@ import { HiOutlineArrowRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../Input";
-import { Container } from "./styles";
-import { AuthSchema } from "../../utils/schemas";
+import { Container } from "../LoginAuth/styles";
+import { SignUpSchema } from "../../utils/schemas";
 
 type LoginInfos = {
+  name: string;
   email: string;
   password: string;
 };
 
-const LoginAuth: React.FC = () => {
+const SignUpForm: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginInfos>({ resolver: yupResolver(AuthSchema) });
+  } = useForm<LoginInfos>({ resolver: yupResolver(SignUpSchema) });
 
   const onSubmit: SubmitHandler<LoginInfos> = (data) => console.log(data);
 
   return (
     <Container>
-      <h1>Authentication</h1>
+      <h1>Registration</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          type="text"
+          placeholder="Name"
+          {...register("name")}
+          error={errors.name?.message}
+        />
         <Input
           type="text"
           placeholder="Email"
@@ -36,16 +43,16 @@ const LoginAuth: React.FC = () => {
           {...register("password")}
           error={errors.password?.message}
         />
-        <Link to="/reset-password">I forget my password</Link>
         <button className="button">
-          Log In <HiOutlineArrowRight />
+          Register
+          <HiOutlineArrowRight />
         </button>
       </form>
-      <Link to="/signup" className="button action">
-        Sign Up <HiOutlineArrowRight />
+      <Link to="/" className="button action reverse">
+        Back <HiOutlineArrowRight />
       </Link>
     </Container>
   );
 };
 
-export default LoginAuth;
+export default SignUpForm;

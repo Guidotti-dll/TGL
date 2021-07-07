@@ -13,7 +13,9 @@ export const Container = styled.section`
     font-weight: bold;
     font-style: italic;
   }
-  button {
+  .button {
+    width: 100%;
+    text-decoration: none;
     font-size: 35px;
     font-weight: bold;
     font-style: italic;
@@ -22,6 +24,7 @@ export const Container = styled.section`
     background-color: ${colors.white};
     display: flex;
     align-items: center;
+    justify-content: center;
 
     color: ${colors.green};
     cursor: pointer;
