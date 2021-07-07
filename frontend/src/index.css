@@ -1,9 +1,13 @@
 body {
+  font-family: "Helvetica Neue", sans-serif;
+
+  background-color: #f7f7f7;
+}
+
+* {
   margin: 0;
   padding: 0;
-  font-family: "Helvetica Neue", sans-serif;
   box-sizing: border-box;
-  background-color: #f7f7f7;
 }
 
 input,

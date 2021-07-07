@@ -1,9 +1,12 @@
 import HeaderAuth from "../../components/HeaderAuth";
+import LoginAuth from "../../components/LoginAuth";
+import { Container } from "./styles";
 const AuthPage = () => {
   return (
-    <div>
+    <Container>
       <HeaderAuth />
-    </div>
+      <LoginAuth />
+    </Container>
   );
 };
 
