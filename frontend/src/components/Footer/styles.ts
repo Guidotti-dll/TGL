@@ -3,7 +3,7 @@ import { colors } from "../../constants/colors";
 
 export const Container = styled.footer`
   width: 100%;
-  height: 79.5px;
+  min-height: 79.5px;
   color: ${colors.gray};
   display: flex;
   justify-content: center;
