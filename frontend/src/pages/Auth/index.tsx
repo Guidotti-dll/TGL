@@ -1,5 +1,10 @@
+import HeaderAuth from "../../components/HeaderAuth";
 const AuthPage = () => {
-  return <div>auth</div>;
+  return (
+    <div>
+      <HeaderAuth />
+    </div>
+  );
 };
 
 export default AuthPage;
