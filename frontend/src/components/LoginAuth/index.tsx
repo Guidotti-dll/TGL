@@ -3,7 +3,7 @@ import { HiOutlineArrowRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../Input";
-import { Container } from "./styles";
+import { FormContainer } from "../../styles/FormContainer";
 import { AuthSchema } from "../../utils/schemas";
 
 type LoginInfos = {
@@ -21,7 +21,7 @@ const LoginAuth: React.FC = () => {
   const onSubmit: SubmitHandler<LoginInfos> = (data) => console.log(data);
 
   return (
-    <Container>
+    <FormContainer>
       <h1>Authentication</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -44,7 +44,7 @@ const LoginAuth: React.FC = () => {
       <Link to="/signup" className="button action">
         Sign Up <HiOutlineArrowRight />
       </Link>
-    </Container>
+    </FormContainer>
   );
 };
 
