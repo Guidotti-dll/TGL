@@ -1,4 +1,5 @@
-import { Container } from "./styles";
+import React from 'react'
+import { Container } from './styles'
 const HeaderAuth: React.FC = () => {
   return (
     <Container>
@@ -6,7 +7,7 @@ const HeaderAuth: React.FC = () => {
       <p>for</p>
       <p>LOTTERY</p>
     </Container>
-  );
-};
+  )
+}
 
-export default HeaderAuth;
+export default HeaderAuth

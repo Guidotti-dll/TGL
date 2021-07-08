@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const AuthContainer = styled.div`
   height: calc(100vh - 79.5px);
@@ -7,4 +7,4 @@ export const AuthContainer = styled.div`
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-`;
+`

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const InputStyle = styled.div`
   display: flex;
@@ -26,4 +26,4 @@ export const InputStyle = styled.div`
   &::placeholder {
     color: #9d9d9d;
   }
-`;
+`

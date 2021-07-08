@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors } from "../constants/colors";
+import styled from 'styled-components'
+import { colors } from '../constants/colors'
 
 export const FormContainer = styled.section`
   width: 352px;
@@ -64,4 +64,4 @@ export const FormContainer = styled.section`
       padding-right: 27px;
     }
   }
-`;
+`

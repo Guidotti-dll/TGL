@@ -1,6 +1,7 @@
-import HeaderAuth from "../../components/HeaderAuth";
-import ResetPasswordForm from "../../components/ResetPasswordForm";
-import { AuthContainer } from "../../styles/AuthContainer";
+import React from 'react'
+import HeaderAuth from '../../components/HeaderAuth'
+import ResetPasswordForm from '../../components/ResetPasswordForm'
+import { AuthContainer } from '../../styles/AuthContainer'
 
 const ResetPasswordPage: React.FC = () => {
   return (
@@ -8,7 +9,7 @@ const ResetPasswordPage: React.FC = () => {
       <HeaderAuth />
       <ResetPasswordForm />
     </AuthContainer>
-  );
-};
+  )
+}
 
-export default ResetPasswordPage;
+export default ResetPasswordPage

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors } from "../../constants/colors";
+import styled from 'styled-components'
+import { colors } from '../../constants/colors'
 
 export const Container = styled.section`
   display: flex;
@@ -33,4 +33,4 @@ export const Container = styled.section`
       font-size: 5.188rem;
     }
   }
-`;
+`
