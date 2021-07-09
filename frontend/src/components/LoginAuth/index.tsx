@@ -1,5 +1,5 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
@@ -7,7 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Input from '../Input'
 import { FormContainer } from '../../styles/FormContainer'
 import { AuthSchema } from '../../utils/schemas'
-import { loginRequest } from '../../store/ducks/Auth'
+import { AuthState, loginRequest } from '../../store/ducks/Auth'
+import { AppStore } from '../../store'
 
 type LoginInfos = {
   email: string
@@ -15,6 +16,7 @@ type LoginInfos = {
 }
 
 const LoginAuth: React.FC = () => {
+  const { error } = useSelector<AppStore, AuthState>(state => state.Auth)
   const dispatch = useDispatch()
   const {
     register,
@@ -25,6 +27,12 @@ const LoginAuth: React.FC = () => {
   const onSubmit: SubmitHandler<LoginInfos> = data => {
     dispatch(loginRequest(data.email, data.password))
   }
+
+  useEffect(() => {
+    if (error) {
+      console.log(error)
+    }
+  }, [error])
 
   return (
     <FormContainer>

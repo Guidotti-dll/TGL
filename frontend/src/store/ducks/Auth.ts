@@ -10,16 +10,16 @@ export const Types = {
 
 export interface AuthState {
   isLogged: boolean
-  token: string | null
-  user: User | {}
+  token: string
+  user: User
   loading: boolean
   error: string
 }
 
 const initialState: AuthState = {
   isLogged: false,
-  token: null,
-  user: {},
+  token: '',
+  user: {} as User,
   loading: false,
   error: '',
 }
@@ -29,9 +29,21 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
     case Types.LOGIN_REQUEST:
       return { ...state, loading: true }
     case Types.LOGIN_SUCCESS:
-      return { ...state, loading: false, error: '', user: action.payload.user }
+      return {
+        ...state,
+        loading: false,
+        error: '',
+        user: action.payload.user,
+        token: action.payload.token,
+        isLogged: true,
+      }
     case Types.LOGIN_FAILURE:
-      return { ...state, loading: false, error: action.payload.error, user: {} }
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+        user: {} as User,
+      }
     case Types.LOGOUT:
       return initialState
     default:
@@ -59,9 +71,10 @@ export const loginSuccess = (user: User, token: string) => {
   }
 }
 export const loginFailure = (error: string) => {
+  console.log(error)
   return {
     type: Types.LOGIN_FAILURE,
-    payload: error,
+    payload: { error },
   }
 }
 

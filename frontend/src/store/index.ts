@@ -6,14 +6,15 @@ import rootSaga from './rootSaga'
 import rootReducer from './rootReducer'
 
 export interface AppStore {
-  auth: AuthState
+  Auth: AuthState
 }
 
 const sagaMiddleware = createSagaMiddleware()
+const middleware = [sagaMiddleware]
 
 const store: Store<AppStore> = createStore(
   rootReducer,
-  applyMiddleware(sagaMiddleware),
+  applyMiddleware(...middleware),
 )
 
 sagaMiddleware.run(rootSaga)

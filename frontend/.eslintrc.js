@@ -13,8 +13,15 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': 'warn',
     'no-use-before-define': [0],
     '@typescript-eslint/no-use-before-define': [1],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        varsIgnorePattern: '_',
+      },
+    ],
   },
 }
