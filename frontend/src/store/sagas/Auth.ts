@@ -14,12 +14,10 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
     yield put(loginFailure(error.message))
   }
 }
-function* watchOnLoadLyrics() {
+function* watchOnHandleLogin() {
   yield takeEvery(Types.LOGIN_REQUEST, handleLogin)
 }
 
 export default function* lyricsSaga() {
-  yield all([fork(watchOnLoadLyrics)])
+  yield all([fork(watchOnHandleLogin)])
 }
-
-// export default all([takeLatest(Types.LOGIN_REQUEST, handleLogin)])
