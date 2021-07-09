@@ -3,11 +3,10 @@ import { User } from '../../interfaceies/user'
 import { loginSuccess, loginRequest, loginFailure, Types } from '../ducks/Auth'
 
 export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
-  console.log(payload.email, payload.password)
   try {
     const user: User = {
       name: 'lucas',
-      email: 'lucas@test.com',
+      email: payload.email,
     }
 
     yield put(loginSuccess(user, '5456465645da465sd46a465ad'))

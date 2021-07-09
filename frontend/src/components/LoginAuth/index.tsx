@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { HiOutlineArrowRight } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Input from '../Input'
 import { FormContainer } from '../../styles/FormContainer'
@@ -18,6 +18,7 @@ type LoginInfos = {
 const LoginAuth: React.FC = () => {
   const { error } = useSelector<AppStore, AuthState>(state => state.Auth)
   const dispatch = useDispatch()
+  const { push } = useHistory()
   const {
     register,
     handleSubmit,
@@ -26,6 +27,7 @@ const LoginAuth: React.FC = () => {
 
   const onSubmit: SubmitHandler<LoginInfos> = data => {
     dispatch(loginRequest(data.email, data.password))
+    push('/recent-games')
   }
 
   useEffect(() => {

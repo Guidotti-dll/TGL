@@ -71,7 +71,6 @@ export const loginSuccess = (user: User, token: string) => {
   }
 }
 export const loginFailure = (error: string) => {
-  console.log(error)
   return {
     type: Types.LOGIN_FAILURE,
     payload: { error },

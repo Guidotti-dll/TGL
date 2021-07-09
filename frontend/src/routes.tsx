@@ -2,8 +2,10 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import AuthPage from './pages/Auth'
 import Footer from './components/Footer'
+import PrivateRoute from './components/PrivateRoute'
 import SignUpPage from './pages/SignUp'
 import ResetPasswordPage from './pages/ResetPassword'
+import RecentGames from './pages/RecentGames'
 
 const Routes: React.FC = () => {
   return (
@@ -12,6 +14,7 @@ const Routes: React.FC = () => {
         <Route path='/' exact component={AuthPage} />
         <Route path='/signup' component={SignUpPage} />
         <Route path='/reset-password' component={ResetPasswordPage} />
+        <PrivateRoute path='/recent-games' component={RecentGames} />
       </Switch>
       <Footer />
     </BrowserRouter>
