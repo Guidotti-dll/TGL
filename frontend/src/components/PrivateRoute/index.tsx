@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { AppStore } from '../../store'
 import { AuthState } from '../../store/ducks/Auth'
 import { Redirect, Route } from 'react-router-dom'
+import NavBar from '../NavBar'
 
 interface IProps {
   exact?: boolean
@@ -18,7 +19,10 @@ const PrivateRoute = ({ component: Component, ...rest }: IProps) => {
       {...rest}
       render={() => {
         return isLogged ? (
-          <>{<Component />}</>
+          <>
+            <NavBar />
+            {<Component />}
+          </>
         ) : (
           <Redirect to={{ pathname: '/' }} />
         )
