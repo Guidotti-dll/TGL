@@ -21,7 +21,7 @@ export const FormContainer = styled.section`
     font-style: italic;
     padding: 30px;
     border: 0;
-    background-color: ${colors.white};
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
