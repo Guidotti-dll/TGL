@@ -7,6 +7,7 @@ import { Button } from '../../styles/Button'
 import { useSelector } from 'react-redux'
 import { AppStore } from '../../store'
 import { AuthState } from '../../store/ducks/Auth'
+import { formatDate, formatMoney } from '../../utils/formatValue'
 
 const RecentGames: React.FC = () => {
   const { user } = useSelector<AppStore, AuthState>(state => state.Auth)
@@ -54,7 +55,7 @@ const RecentGames: React.FC = () => {
             <div className='container'>
               <strong>{game.numbers.sort((a, b) => a - b).join(', ')}</strong>
               <p>
-                {game.data} - ({game.price})
+                {formatDate(game.data)} - ({formatMoney(game.price)})
               </p>
               <strong className='type'>{game.type}</strong>
             </div>
