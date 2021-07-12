@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
-import { Header, Game, GamesContainer } from './styles'
+import { Header, BetCard, GamesContainer } from './styles'
 import { types } from '../../utils/types'
 import { Button } from '../../styles/Button'
 import { useSelector } from 'react-redux'
@@ -51,15 +51,15 @@ const RecentGames: React.FC = () => {
       </Header>
       <ul>
         {filteredGames.map((game, index) => (
-          <Game color={game.color} key={index}>
+          <BetCard color={game.color} key={index}>
             <div className='container'>
               <strong>{game.numbers.sort((a, b) => a - b).join(', ')}</strong>
               <p>
-                {formatDate(game.data)} - ({formatMoney(game.price)})
+                {formatDate(game.date)} - ({formatMoney(game.price)})
               </p>
               <strong className='type'>{game.type}</strong>
             </div>
-          </Game>
+          </BetCard>
         ))}
       </ul>
     </GamesContainer>

@@ -49,7 +49,7 @@ export const Header = styled.div`
   }
 `
 
-export const Game = styled.li`
+export const BetCard = styled.li`
   height: 94px;
   padding: 7px 0;
   position: relative;
