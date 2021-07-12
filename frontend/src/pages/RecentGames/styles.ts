@@ -14,8 +14,10 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   div {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
 
     h1 {
