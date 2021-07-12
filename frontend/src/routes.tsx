@@ -6,6 +6,7 @@ import PrivateRoute from './components/PrivateRoute'
 import SignUpPage from './pages/SignUp'
 import ResetPasswordPage from './pages/ResetPassword'
 import RecentGames from './pages/RecentGames'
+import NewBetPage from './pages/NewBet'
 
 const Routes: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Routes: React.FC = () => {
         <Route path='/signup' component={SignUpPage} />
         <Route path='/reset-password' component={ResetPasswordPage} />
         <PrivateRoute path='/recent-games' component={RecentGames} />
+        <PrivateRoute path='/new-bet' component={NewBetPage} />
       </Switch>
       <Footer />
     </BrowserRouter>
