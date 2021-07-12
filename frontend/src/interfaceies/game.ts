@@ -1,8 +1,7 @@
 export interface Game {
-  id: string
-  name: string
+  type: string
   color: string
+  data: string
   price: number
-  date: Date
   numbers: number[]
 }
