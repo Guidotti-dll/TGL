@@ -69,6 +69,9 @@ export const Game = styled.li`
     p {
       font-size: 17px;
     }
+    .type {
+      color: ${props => (props.color ? props.color : colors.gray)};
+    }
   }
 
   &::before {
