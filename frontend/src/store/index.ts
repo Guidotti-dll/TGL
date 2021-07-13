@@ -4,9 +4,11 @@ import { AuthState } from './ducks/Auth'
 
 import rootSaga from './rootSaga'
 import rootReducer from './rootReducer'
+import { CartState } from './ducks/Cart'
 
 export interface AppStore {
   Auth: AuthState
+  Cart: CartState
 }
 
 const sagaMiddleware = createSagaMiddleware()
