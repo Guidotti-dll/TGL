@@ -5,3 +5,13 @@ export interface Game {
   price: number
   numbers: number[]
 }
+
+export interface Type {
+  type: string
+  color: string
+  description: string
+  range: number
+  'max-number': number
+  price: number
+  'min-cart-value': number
+}
