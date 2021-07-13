@@ -8,7 +8,7 @@ export const Types = {
 
 export interface CartState {
   bets: Game[]
-  totalBetValue?: number
+  totalBetValue: number
 }
 
 const initialState: CartState = {
@@ -49,7 +49,11 @@ const reducer: Reducer<CartState> = (state = initialState, action) => {
     case Types.REMOVE_BET:
       return {
         ...state,
-        bets: state.bets?.splice(action.payload.index, 1),
+        totalBetValue:
+          state.totalBetValue - state.bets[action.payload.index].price,
+        bets: state.bets?.filter(
+          (bet, index) => index !== action.payload.index,
+        ),
       }
     default:
       return state

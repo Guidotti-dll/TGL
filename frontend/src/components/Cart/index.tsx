@@ -1,7 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppStore } from '../../store'
-import { CartState } from '../../store/ducks/Cart'
+import { CartState, removeBet } from '../../store/ducks/Cart'
 import { formatMoney } from '../../utils/formatValue'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { BsTrash } from 'react-icons/bs'
@@ -11,9 +11,10 @@ const Cart: React.FC = () => {
   const { totalBetValue, bets } = useSelector<AppStore, CartState>(
     state => state.Cart,
   )
+  const dispatch = useDispatch()
 
   const deleteBetHandler = (index: number) => {
-    console.log(index)
+    dispatch(removeBet(index))
   }
 
   return (
@@ -36,7 +37,7 @@ const Cart: React.FC = () => {
             </BetCard>
           ))}
         </ul>
-        {totalBetValue && totalBetValue > 0 ? (
+        {totalBetValue > 0 ? (
           <>
             <p className='total'>
               <strong>CART</strong> <span>TOTAL</span> :{' '}
@@ -48,7 +49,7 @@ const Cart: React.FC = () => {
         )}
       </div>
 
-      {totalBetValue && totalBetValue > 0 && (
+      {totalBetValue > 0 && (
         <div className='buttonContainer'>
           <button>
             Save <HiOutlineArrowRight />
