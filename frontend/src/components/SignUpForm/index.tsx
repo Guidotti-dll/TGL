@@ -1,7 +1,8 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { HiOutlineArrowRight } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Input from '../Input'
 import { FormContainer } from '../../styles/FormContainer'
@@ -14,13 +15,18 @@ type LoginInfos = {
 }
 
 const SignUpForm: React.FC = () => {
+  const { push } = useHistory()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInfos>({ resolver: yupResolver(SignUpSchema) })
 
-  const onSubmit: SubmitHandler<LoginInfos> = data => console.log(data)
+  const onSubmit: SubmitHandler<LoginInfos> = data => {
+    console.log(data)
+    toast.success('Conta criada com sucesso!!')
+    push('/')
+  }
 
   return (
     <FormContainer>

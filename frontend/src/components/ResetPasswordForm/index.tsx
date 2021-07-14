@@ -1,8 +1,9 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { HiOutlineArrowRight } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { toast } from 'react-toastify'
 import Input from '../Input'
 import { EmailSchema } from '../../utils/schemas'
 import { FormContainer } from '../../styles/FormContainer'
@@ -12,13 +13,20 @@ type LoginInfos = {
 }
 
 const ResetPasswordForm: React.FC = () => {
+  const { push } = useHistory()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInfos>({ resolver: yupResolver(EmailSchema) })
 
-  const onSubmit: SubmitHandler<LoginInfos> = data => console.log(data)
+  const onSubmit: SubmitHandler<LoginInfos> = data => {
+    console.log(data)
+    toast.success(
+      'Enviamos um link para o seu email para recuperar a sua senha!!',
+    )
+    push('/')
+  }
 
   return (
     <FormContainer>
