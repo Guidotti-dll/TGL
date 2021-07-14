@@ -112,7 +112,7 @@ const Bet: React.FC = () => {
   return (
     <GameContainer>
       <h1>
-        New bet <span>for {selectedGame?.type.toUpperCase() || 'TLG'}</span>
+        New bet <span>for {selectedGame?.type.toUpperCase() || 'TGL'}</span>
       </h1>
       <div className='filter'>
         <strong>Chouse a game</strong>

@@ -14,7 +14,7 @@ const NavBar: React.FC = () => {
     <Nav>
       <div className='logoContainer'>
         <h1>
-          <NavLink to='/recent-games'>TLG</NavLink>
+          <NavLink to='/recent-games'>TGL</NavLink>
         </h1>
         <NavLink activeClassName='disable' className='home' to='/recent-games'>
           Home
