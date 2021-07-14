@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { GameContainer, Number } from './styles'
 import { types } from '../../utils/types'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
@@ -25,10 +25,12 @@ const Bet: React.FC = () => {
     }
   }, [selectedGame])
 
-  const isInArray = (number: number) => {
-    return selectedNumbers?.some(numberInArray => numberInArray === number)
-  }
-
+  const isInArray = useCallback(
+    (number: number) => {
+      return selectedNumbers?.some(numberInArray => numberInArray === number)
+    },
+    [selectedNumbers],
+  )
   const getRandomIntInclusive = (min: number, max: number) => {
     min = Math.ceil(min)
     max = Math.floor(max)
@@ -79,8 +81,7 @@ const Bet: React.FC = () => {
         tempArray.push(selectedNumber)
       }
     }
-    console.log(selectedNumbers)
-    setSelectedNumbers(tempArray)
+    setSelectedNumbers([...tempArray])
   }
 
   const addToCartHandler = () => {
