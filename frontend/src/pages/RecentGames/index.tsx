@@ -6,19 +6,19 @@ import { types } from '../../utils/types'
 import { Button } from '../../styles/Button'
 import { useSelector } from 'react-redux'
 import { AppStore } from '../../store'
-import { AuthState } from '../../store/ducks/Auth'
 import { formatDate, formatMoney } from '../../utils/formatValue'
+import { BetState } from '../../store/ducks/Bets'
 
 const RecentGames: React.FC = () => {
-  const { user } = useSelector<AppStore, AuthState>(state => state.Auth)
-  const [filteredGames, setFilteredGames] = useState(user.recentGames)
+  const { myNets } = useSelector<AppStore, BetState>(state => state.Bets)
+  const [filteredGames, setFilteredGames] = useState(myNets)
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
     if (filter) {
-      setFilteredGames(user.recentGames.filter(game => game.type === filter))
+      setFilteredGames(myNets.filter(game => game.type === filter))
     } else {
-      setFilteredGames(user.recentGames)
+      setFilteredGames(myNets)
     }
   }, [filter])
 

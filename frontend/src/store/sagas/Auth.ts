@@ -10,57 +10,6 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
     const user: User = {
       name: 'lucas',
       email: payload.email,
-      recentGames: [
-        {
-          type: 'Lotofácil',
-          color: '#7F3992',
-          price: 2.5,
-          date: '2021-07-12',
-          numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        },
-        {
-          type: 'Lotofácil',
-          color: '#7F3992',
-          price: 2.5,
-          date: '2021-07-12',
-          numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        },
-        {
-          type: 'Lotofácil',
-          color: '#7F3992',
-          price: 2.5,
-          date: '2021-07-12',
-          numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        },
-        {
-          type: 'Mega-Sena',
-          color: '#01AC66',
-          price: 4.5,
-          date: '2021-07-12',
-          numbers: [15, 13, 1, 3, 6, 9],
-        },
-        {
-          type: 'Lotofácil',
-          color: '#7F3992',
-          price: 2.5,
-          date: '2021-07-12',
-          numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        },
-        {
-          type: 'Mega-Sena',
-          color: '#01AC66',
-          price: 4.5,
-          date: '2021-07-12',
-          numbers: [1, 2, 3, 4, 5, 6],
-        },
-        {
-          type: 'Quina',
-          color: '#F79C31',
-          price: 2,
-          date: '2021-07-12',
-          numbers: [1, 2, 3, 4, 5],
-        },
-      ],
     }
 
     yield put(loginSuccess(user, '5456465645da465sd46a465ad'))
