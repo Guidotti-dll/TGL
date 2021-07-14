@@ -34,7 +34,6 @@ const LoginAuth: React.FC = () => {
 
   useEffect(() => {
     if (isLogged === true) {
-      toast.success('Acesso permitido')
       push('/recent-games')
     }
     if (error) {
