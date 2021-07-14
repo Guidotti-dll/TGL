@@ -13,7 +13,9 @@ const NavBar: React.FC = () => {
   return (
     <Nav>
       <div className='logoContainer'>
-        <h1>TLG</h1>
+        <h1>
+          <NavLink to='/recent-games'>TLG</NavLink>
+        </h1>
         <NavLink activeClassName='disable' className='home' to='/recent-games'>
           Home
         </NavLink>

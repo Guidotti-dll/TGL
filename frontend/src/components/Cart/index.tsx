@@ -8,7 +8,6 @@ import { HiOutlineArrowRight } from 'react-icons/hi'
 import { BsTrash } from 'react-icons/bs'
 import { BetCard, CartContainer } from './styles'
 import { BetState, saveBetsRequest } from '../../store/ducks/Bets'
-import { useHistory } from 'react-router-dom'
 import { types } from '../../utils/types'
 
 const Cart: React.FC = () => {
@@ -17,7 +16,6 @@ const Cart: React.FC = () => {
   )
   const { error } = useSelector<AppStore, BetState>(state => state.Bets)
   const dispatch = useDispatch()
-  const { push } = useHistory()
 
   const deleteBetHandler = (index: number) => {
     dispatch(removeBet(index))
