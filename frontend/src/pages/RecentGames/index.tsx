@@ -13,7 +13,6 @@ const RecentGames: React.FC = () => {
   const { myNets } = useSelector<AppStore, BetState>(state => state.Bets)
   const [filteredGames, setFilteredGames] = useState(myNets)
   const [filter, setFilter] = useState('')
-
   useEffect(() => {
     if (filter) {
       setFilteredGames(myNets.filter(game => game.type === filter))
@@ -49,6 +48,12 @@ const RecentGames: React.FC = () => {
           New Bet <HiOutlineArrowRight />
         </Link>
       </Header>
+      {filteredGames.length === 0 && (
+        <div className='gamesEmpty'>
+          <strong>Você não possui jogos cadastrados</strong>
+          <span>Aposte um pouco, só não ganha quem não joga!!</span>
+        </div>
+      )}
       <ul>
         {filteredGames.map((game, index) => (
           <BetCard color={game.color} key={index}>

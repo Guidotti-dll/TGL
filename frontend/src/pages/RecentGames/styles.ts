@@ -7,6 +7,20 @@ export const GamesContainer = styled(Container)`
   ul {
     margin-top: 38px;
   }
+  .gamesEmpty {
+    margin-top: 15px;
+    color: ${colors.gray};
+    display: flex;
+    flex-direction: column;
+    strong {
+      font-size: 20px;
+      font-style: italic;
+    }
+    span {
+      margin-top: 5px;
+      font-size: 17px;
+    }
+  }
 `
 
 export const Header = styled.div`
