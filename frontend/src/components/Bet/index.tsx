@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { toast } from 'react-toastify'
 import { GameContainer, Number } from './styles'
 import { types } from '../../utils/types'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
@@ -69,7 +70,7 @@ const Bet: React.FC = () => {
       tempArray = []
     }
     if (!selectedGame) {
-      console.log('Sem game selecionado')
+      toast.warn('Selecione um jogo antes para completa-lo')
       return
     }
     while (selectedGame?.['max-number'] > tempArray.length) {
@@ -85,7 +86,11 @@ const Bet: React.FC = () => {
   }
 
   const addToCartHandler = () => {
-    if (selectedGame && selectedGame['max-number'] === selectedNumbers.length) {
+    if (!selectedGame) {
+      toast.warn('Selecione um jogo antes para adicionar-lo ao carrinho')
+      return
+    }
+    if (selectedGame!['max-number'] === selectedNumbers.length) {
       const newBet: Game = {
         type: selectedGame!.type,
         color: selectedGame!.color,
@@ -96,7 +101,11 @@ const Bet: React.FC = () => {
       dispatch(addBet(newBet))
       clearGameHandler()
     } else {
-      console.log('erro')
+      toast.warn(
+        `Escolha ${selectedNumbers.length === 0 ? '' : 'mais'} ${
+          selectedGame!['max-number'] - selectedNumbers.length
+        } números antes para adicionar o jogo ao carrilho`,
+      )
     }
   }
 
