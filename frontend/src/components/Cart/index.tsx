@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStore } from '../../store'
+import { toast } from 'react-toastify'
 import { CartState, removeBet } from '../../store/ducks/Cart'
 import { formatMoney } from '../../utils/formatValue'
 import { HiOutlineArrowRight } from 'react-icons/hi'
@@ -30,15 +31,20 @@ const Cart: React.FC = () => {
       }
     })
     if (minValue > totalBetValue) {
-      console.log(`O valor minimo deve ser ${formatMoney(minValue)}`)
+      toast.warn(`O valor minimo deve ser de ${formatMoney(minValue)}`)
       return
     }
     dispatch(saveBetsRequest(bets))
-
     if (!error) {
-      push('recent-games')
+      push('/recent-games')
     }
   }
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error)
+    }
+  }, [error])
 
   return (
     <CartContainer>
