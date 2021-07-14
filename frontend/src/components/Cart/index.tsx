@@ -41,6 +41,14 @@ const Cart: React.FC = () => {
     }
   }, [error])
 
+  useEffect(() => {
+    if (bets.length !== 0) {
+      toast.info(
+        'Quando você saiu esqueceu de salvar suas apostas, então as mantivemos para você',
+      )
+    }
+  }, [])
+
   return (
     <CartContainer>
       <div className='content'>
