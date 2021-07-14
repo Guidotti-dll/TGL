@@ -1,14 +1,15 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useCallback } from 'react'
 import { toast } from 'react-toastify'
 import { GameContainer, Number } from './styles'
-import { types } from '../../utils/types'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 import { Button } from '../../styles/Button'
 import { Game, Type } from '../../interfaceies/game'
 import { useDispatch } from 'react-redux'
 import { addBet } from '../../store/ducks/Cart'
+import { NewBetProps } from '../../pages/NewBet'
 
-const Bet: React.FC = () => {
+const Bet: React.FC<NewBetProps> = ({ types }) => {
   const dispatch = useDispatch()
   const [selectedGame, setSelectedGame] = useState<Type>()
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([])

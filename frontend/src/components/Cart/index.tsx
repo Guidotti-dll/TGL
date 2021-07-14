@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStore } from '../../store'
@@ -8,12 +9,14 @@ import { HiOutlineArrowRight } from 'react-icons/hi'
 import { BsTrash } from 'react-icons/bs'
 import { BetCard, CartContainer } from './styles'
 import { BetState, saveBetsRequest } from '../../store/ducks/Bets'
-import { types } from '../../utils/types'
+// import { useTypes } from '../../hooks/useTypes'
+import { NewBetProps } from '../../pages/NewBet'
 
-const Cart: React.FC = () => {
+const Cart: React.FC<NewBetProps> = ({ types }) => {
   const { totalBetValue, bets } = useSelector<AppStore, CartState>(
     state => state.Cart,
   )
+  // const { types } = useTypes()
   const { error } = useSelector<AppStore, BetState>(state => state.Bets)
   const dispatch = useDispatch()
 
@@ -21,6 +24,13 @@ const Cart: React.FC = () => {
     dispatch(removeBet(index))
   }
   const saveBetHandler = () => {
+    if (types.length === 0) {
+      toast.info(
+        'Devido a um erro ao carregar os tipos de jogos não sera possível salvar seus jogos, pedimos desculpas',
+        { autoClose: 8000 },
+      )
+      return
+    }
     let minValue = 0
     bets.forEach(element => {
       const tempType = types.find(type => type.type === element.type)

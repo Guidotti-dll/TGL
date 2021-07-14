@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { HiOutlineArrowRight } from 'react-icons/hi'
-import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import { Header, BetCard, GamesContainer } from './styles'
 import { Button } from '../../styles/Button'
@@ -8,13 +7,12 @@ import { useSelector } from 'react-redux'
 import { AppStore } from '../../store'
 import { formatDate, formatMoney } from '../../utils/formatValue'
 import { BetState } from '../../store/ducks/Bets'
-import api from '../../services/api'
-import { Type } from '../../interfaceies/game'
+import { useTypes } from '../../hooks/useTypes'
 
 const RecentGames: React.FC = () => {
   const { myNets } = useSelector<AppStore, BetState>(state => state.Bets)
   const [filteredGames, setFilteredGames] = useState(myNets)
-  const [types, setTypes] = useState<Type[]>([])
+  const { types } = useTypes()
   const [filter, setFilter] = useState('')
   useEffect(() => {
     if (filter) {
@@ -23,16 +21,6 @@ const RecentGames: React.FC = () => {
       setFilteredGames(myNets)
     }
   }, [filter])
-
-  useEffect(() => {
-    api
-      .get('/games.json')
-      .then(({ data }) => {
-        console.log(data.types)
-        setTypes(data.types)
-      })
-      .catch(error => toast.error(error.message))
-  }, [])
 
   return (
     <GamesContainer>
