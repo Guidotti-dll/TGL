@@ -36,10 +36,6 @@ const Bet: React.FC = () => {
   }
 
   const clearGameHandler = () => {
-    if (!selectedGame) {
-      console.log('Sem game selecionado')
-      return
-    }
     setSelectedNumbers([])
   }
 
@@ -51,17 +47,15 @@ const Bet: React.FC = () => {
   }
 
   const addNumberHandler = (number: number) => {
-    if (
-      selectedGame &&
-      selectedGame?.['max-number'] >= selectedNumbers.length
-    ) {
-      if (isInArray(number)) {
-        setSelectedNumbers(prevState =>
-          prevState?.filter(
-            (numberInArray: number) => numberInArray !== number,
-          ),
-        )
-      } else {
+    if (isInArray(number)) {
+      setSelectedNumbers(prevState =>
+        prevState?.filter((numberInArray: number) => numberInArray !== number),
+      )
+    } else {
+      if (
+        selectedGame &&
+        selectedGame?.['max-number'] > selectedNumbers.length
+      ) {
         setSelectedNumbers(prevState => [...prevState, number])
       }
     }
@@ -81,11 +75,11 @@ const Bet: React.FC = () => {
       const hasInArray = tempArray.some(item => {
         return item === selectedNumber
       })
-      if (!hasInArray) {
+      if (!hasInArray && selectedNumber !== 0) {
         tempArray.push(selectedNumber)
       }
     }
-    console.log(tempArray)
+    console.log(selectedNumbers)
     setSelectedNumbers(tempArray)
   }
 
@@ -95,7 +89,7 @@ const Bet: React.FC = () => {
         type: selectedGame!.type,
         color: selectedGame!.color,
         price: selectedGame!.price,
-        date: new Date().toLocaleDateString(),
+        date: new Date().toISOString(),
         numbers: selectedNumbers.sort((a, b) => a - b),
       }
       dispatch(addBet(newBet))
@@ -134,7 +128,7 @@ const Bet: React.FC = () => {
       </div>
       <div className='numbers'>
         <ul>
-          {numbers?.map(number => (
+          {numbers.map((number: number) => (
             <li key={number}>
               <Number
                 onClick={() => addNumberHandler(number)}

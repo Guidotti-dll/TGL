@@ -12,30 +12,8 @@ export interface CartState {
 }
 
 const initialState: CartState = {
-  bets: [
-    {
-      type: 'Lotofácil',
-      color: '#7F3992',
-      price: 2.5,
-      date: '2021-07-12',
-      numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    },
-    {
-      type: 'Mega-Sena',
-      color: '#01AC66',
-      price: 4.5,
-      date: '2021-07-12',
-      numbers: [1, 2, 3, 4, 5, 6],
-    },
-    {
-      type: 'Quina',
-      color: '#F79C31',
-      price: 2,
-      date: '2021-07-12',
-      numbers: [1, 2, 3, 4, 5],
-    },
-  ],
-  totalBetValue: 9,
+  bets: [],
+  totalBetValue: 0,
 }
 
 const reducer: Reducer<CartState> = (state = initialState, action) => {
