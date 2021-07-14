@@ -5,6 +5,7 @@ import {
   saveBetsFailure,
   Types,
 } from '../ducks/Bets'
+import { clearBet } from '../ducks/Cart'
 
 export function* handleSaveBets({
   payload,
@@ -14,6 +15,7 @@ export function* handleSaveBets({
       throw new Error('Não há apostas')
     }
 
+    yield put(clearBet())
     yield put(saveBetsSuccess(payload.bets))
   } catch (error) {
     yield put(saveBetsFailure(error.message))

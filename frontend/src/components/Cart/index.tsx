@@ -6,19 +6,25 @@ import { formatMoney } from '../../utils/formatValue'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { BsTrash } from 'react-icons/bs'
 import { BetCard, CartContainer } from './styles'
-import { saveBetsRequest } from '../../store/ducks/Bets'
+import { BetState, saveBetsRequest } from '../../store/ducks/Bets'
+import { useHistory } from 'react-router-dom'
 
 const Cart: React.FC = () => {
   const { totalBetValue, bets } = useSelector<AppStore, CartState>(
     state => state.Cart,
   )
+  const { error } = useSelector<AppStore, BetState>(state => state.Bets)
   const dispatch = useDispatch()
+  const { push } = useHistory()
 
   const deleteBetHandler = (index: number) => {
     dispatch(removeBet(index))
   }
   const saveBetHandler = () => {
     dispatch(saveBetsRequest(bets))
+    if (!error) {
+      push('recent-games')
+    }
   }
 
   return (
