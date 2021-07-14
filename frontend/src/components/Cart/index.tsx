@@ -35,9 +35,6 @@ const Cart: React.FC = () => {
       return
     }
     dispatch(saveBetsRequest(bets))
-    if (!error) {
-      push('/recent-games')
-    }
   }
 
   useEffect(() => {
