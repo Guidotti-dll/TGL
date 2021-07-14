@@ -117,6 +117,9 @@ const Bet: React.FC<NewBetProps> = ({ types }) => {
       </h1>
       <div className='filter'>
         <strong>Chouse a game</strong>
+        {types.length === 0 && (
+          <p>Houve um erro ao carregar jogos, pedimos desculpas</p>
+        )}
         <ul>
           {types.map(type => (
             <li key={type.color}>
