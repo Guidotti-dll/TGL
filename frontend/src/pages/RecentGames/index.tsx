@@ -62,10 +62,15 @@ const RecentGames: React.FC = () => {
           New Bet <HiOutlineArrowRight />
         </Link>
       </Header>
-      {filteredGames.length === 0 && (
+      {myNets.length === 0 && (
         <div className='gamesEmpty'>
           <strong>Você não possui jogos cadastrados</strong>
           <span>Aposte um pouco, só não ganha quem não joga!!</span>
+        </div>
+      )}
+      {filter && filteredGames.length === 0 && myNets.length > 0 && (
+        <div className='gamesEmpty'>
+          <span>Você não possui jogos do tipo {filter} cadastrados</span>
         </div>
       )}
       <ul>
