@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { Link, useHistory } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -16,7 +17,9 @@ type LoginInfos = {
 }
 
 const LoginAuth: React.FC = () => {
-  const { error } = useSelector<AppStore, AuthState>(state => state.Auth)
+  const { error, isLogged } = useSelector<AppStore, AuthState>(
+    state => state.Auth,
+  )
   const dispatch = useDispatch()
   const { push } = useHistory()
   const {
@@ -27,16 +30,17 @@ const LoginAuth: React.FC = () => {
 
   const onSubmit: SubmitHandler<LoginInfos> = data => {
     dispatch(loginRequest(data.email, data.password))
-    if (!error) {
-      push('/recent-games')
-    }
   }
 
   useEffect(() => {
-    if (error) {
-      console.log(error)
+    if (isLogged === true) {
+      toast.success('Acesso permitido')
+      push('/recent-games')
     }
-  }, [error])
+    if (error) {
+      toast.error(error)
+    }
+  }, [isLogged, error])
 
   return (
     <FormContainer>

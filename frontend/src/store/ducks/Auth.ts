@@ -27,10 +27,9 @@ const initialState: AuthState = {
 const reducer: Reducer<AuthState> = (state = initialState, action) => {
   switch (action.type) {
     case Types.LOGIN_REQUEST:
-      return { ...state, loading: true }
+      return { ...state, loading: true, error: '' }
     case Types.LOGIN_SUCCESS:
       return {
-        ...state,
         loading: false,
         error: '',
         user: action.payload.user,

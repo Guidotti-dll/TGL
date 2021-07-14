@@ -7,7 +7,7 @@ import { clearCart } from '../ducks/Cart'
 export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
     if (payload.email !== 'teste@test.com' || payload.password !== '12345678') {
-      throw new Error('Usuário invalido')
+      throw new Error('Usuário inválido')
     }
     const user: User = {
       name: 'lucas',

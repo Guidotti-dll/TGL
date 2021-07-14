@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import AuthPage from './pages/Auth'
 import Footer from './components/Footer'
 import PrivateRoute from './components/PrivateRoute'
@@ -11,6 +13,7 @@ import NewBetPage from './pages/NewBet'
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Switch>
         <Route path='/' exact component={AuthPage} />
         <Route path='/signup' component={SignUpPage} />
