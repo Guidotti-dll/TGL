@@ -35,6 +35,7 @@ export const CartContainer = styled.div`
       font-size: 35px;
       font-weight: bold;
       font-style: italic;
+      cursor: pointer;
       border: 0;
       display: flex;
       align-items: center;

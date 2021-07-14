@@ -6,6 +6,7 @@ import { formatMoney } from '../../utils/formatValue'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { BsTrash } from 'react-icons/bs'
 import { BetCard, CartContainer } from './styles'
+import { saveBets } from '../../store/ducks/Bets'
 
 const Cart: React.FC = () => {
   const { totalBetValue, bets } = useSelector<AppStore, CartState>(
@@ -15,6 +16,9 @@ const Cart: React.FC = () => {
 
   const deleteBetHandler = (index: number) => {
     dispatch(removeBet(index))
+  }
+  const saveBetHandler = () => {
+    dispatch(saveBets(bets))
   }
 
   return (
@@ -51,7 +55,7 @@ const Cart: React.FC = () => {
 
       {totalBetValue > 0 && (
         <div className='buttonContainer'>
-          <button>
+          <button onClick={saveBetHandler}>
             Save <HiOutlineArrowRight />
           </button>
         </div>
