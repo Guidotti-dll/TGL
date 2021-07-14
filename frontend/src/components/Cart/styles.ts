@@ -3,7 +3,8 @@ import { colors } from '../../constants/colors'
 
 export const CartContainer = styled.div`
   width: 317px;
-  height: max-content;
+  height: fit-content;
+  max-height: 484px;
   background-color: ${colors.white};
   border: 1px solid #e2e2e2;
   border-radius: 10px;
@@ -14,6 +15,10 @@ export const CartContainer = styled.div`
       font-size: 24px;
       font-style: italic;
       padding: 0 0 30px 0;
+    }
+    ul {
+      max-height: 250px;
+      overflow-y: scroll;
     }
     .total {
       font-size: 24px;

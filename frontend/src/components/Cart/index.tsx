@@ -8,6 +8,7 @@ import { BsTrash } from 'react-icons/bs'
 import { BetCard, CartContainer } from './styles'
 import { BetState, saveBetsRequest } from '../../store/ducks/Bets'
 import { useHistory } from 'react-router-dom'
+import { types } from '../../utils/types'
 
 const Cart: React.FC = () => {
   const { totalBetValue, bets } = useSelector<AppStore, CartState>(
@@ -21,7 +22,19 @@ const Cart: React.FC = () => {
     dispatch(removeBet(index))
   }
   const saveBetHandler = () => {
+    let minValue = 0
+    bets.forEach(element => {
+      const tempType = types.find(type => type.type === element.type)
+      if (tempType!['min-cart-value'] > minValue) {
+        minValue = tempType!['min-cart-value']
+      }
+    })
+    if (minValue > totalBetValue) {
+      console.log(`O valor minimo deve ser ${formatMoney(minValue)}`)
+      return
+    }
     dispatch(saveBetsRequest(bets))
+
     if (!error) {
       push('recent-games')
     }
