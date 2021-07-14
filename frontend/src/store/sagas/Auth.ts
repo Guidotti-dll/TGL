@@ -1,6 +1,8 @@
 import { put, all, takeEvery, fork } from 'redux-saga/effects'
 import { User } from '../../interfaceies/user'
 import { loginSuccess, loginRequest, loginFailure, Types } from '../ducks/Auth'
+import { clearMyBets } from '../ducks/Bets'
+import { clearCart } from '../ducks/Cart'
 
 export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
@@ -17,10 +19,20 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
     yield put(loginFailure(error.message))
   }
 }
+
+export function* handleLogout() {
+  yield put(clearMyBets())
+  yield put(clearCart())
+}
+
 function* watchOnHandleLogin() {
   yield takeEvery(Types.LOGIN_REQUEST, handleLogin)
 }
 
+function* watchOnHandleLogout() {
+  yield takeEvery(Types.LOGOUT, handleLogout)
+}
+
 export default function* lyricsSaga() {
-  yield all([fork(watchOnHandleLogin)])
+  yield all([fork(watchOnHandleLogin), fork(watchOnHandleLogout)])
 }

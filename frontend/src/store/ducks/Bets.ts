@@ -5,6 +5,7 @@ export const Types = {
   SAVE_BETS_REQUEST: 'bets/SAVE_BETS',
   SAVE_BETS_SUCCESS: 'bets/LOGIN_SUCCESS',
   SAVE_BETS__FAILURE: 'bets/SAVE_BETS_fAILURE',
+  CLEAR_MY_BETS: 'bets/CLEAR_MY_BETS',
 }
 
 export interface BetState {
@@ -21,11 +22,6 @@ const initialState: BetState = {
 
 const reducer: Reducer<BetState> = (state = initialState, action) => {
   switch (action.type) {
-    // case Types.SAVE_BETS_REQUEST:
-    //   return {
-    //     ...state,
-    //     bets: state.myNets.push(...action.payload.bets),
-    //   }
     case Types.SAVE_BETS_REQUEST:
       return { ...state, loading: true }
     case Types.SAVE_BETS_SUCCESS:
@@ -40,8 +36,9 @@ const reducer: Reducer<BetState> = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload.error,
-        // user: {} as User,
       }
+    case Types.CLEAR_MY_BETS:
+      return { myNets: [], loading: false, error: '' }
 
     default:
       return state
@@ -69,6 +66,12 @@ export const saveBetsFailure = (error: string) => {
   return {
     type: Types.SAVE_BETS__FAILURE,
     payload: { error },
+  }
+}
+
+export const clearMyBets = () => {
+  return {
+    type: Types.CLEAR_MY_BETS,
   }
 }
 

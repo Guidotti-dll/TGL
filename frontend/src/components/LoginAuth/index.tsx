@@ -27,7 +27,9 @@ const LoginAuth: React.FC = () => {
 
   const onSubmit: SubmitHandler<LoginInfos> = data => {
     dispatch(loginRequest(data.email, data.password))
-    push('/recent-games')
+    if (!error) {
+      push('/recent-games')
+    }
   }
 
   useEffect(() => {

@@ -1,8 +1,15 @@
 import React from 'react'
 import { HiOutlineArrowRight } from 'react-icons/hi'
+import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { logout } from '../../store/ducks/Auth'
 import { Nav } from './styles'
 const NavBar: React.FC = () => {
+  const dispatch = useDispatch()
+  const logoutHandler = () => {
+    dispatch(logout())
+  }
+
   return (
     <Nav>
       <div className='logoContainer'>
@@ -19,7 +26,7 @@ const NavBar: React.FC = () => {
             </NavLink>
           </li>
           <li>
-            <button>
+            <button onClick={logoutHandler}>
               Log out <HiOutlineArrowRight />
             </button>
           </li>

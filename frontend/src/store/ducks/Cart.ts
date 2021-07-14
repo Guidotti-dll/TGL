@@ -4,7 +4,7 @@ import { Game } from '../../interfaceies/game'
 export const Types = {
   ADD_BET: 'cart/ADD_BET',
   REMOVE_BET: 'cart/REMOVE_BET',
-  CLEAR_BET: 'cart/CLEAR_BET',
+  CLEAR_CART: 'cart/CLEAR_CART',
 }
 
 export interface CartState {
@@ -34,12 +34,8 @@ const reducer: Reducer<CartState> = (state = initialState, action) => {
           (bet, index) => index !== action.payload.index,
         ),
       }
-    case Types.CLEAR_BET:
-      return {
-        ...state,
-        bets: [],
-        totalBetValue: 0,
-      }
+    case Types.CLEAR_CART:
+      return { bets: [], totalBetValue: 0 }
     default:
       return state
   }
@@ -63,9 +59,9 @@ export const removeBet = (index: number) => {
   }
 }
 
-export const clearBet = () => {
+export const clearCart = () => {
   return {
-    type: Types.CLEAR_BET,
+    type: Types.CLEAR_CART,
   }
 }
 
