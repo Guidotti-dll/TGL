@@ -63,10 +63,17 @@ export const GameContainer = styled.div`
       align-items: center;
       cursor: pointer;
       :hover,
-      :active,
+      :active {
+        background: #27c383;
+        color: ${colors.white};
+      }
       &.inverted {
         background: #27c383;
         color: ${colors.white};
+        font-weight: bold;
+        svg {
+          margin-right: 28px;
+        }
       }
       &.inverted:hover {
         background: transparent;
