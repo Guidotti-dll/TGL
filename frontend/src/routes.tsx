@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import AuthPage from './pages/Auth'
@@ -10,6 +10,7 @@ import ResetPasswordPage from './pages/ResetPassword'
 import RecentGames from './pages/RecentGames'
 import NewBetPage from './pages/NewBet'
 import AccountPage from './pages/Account'
+import NotFoundPage from './pages/NotFound'
 
 const Routes: React.FC = () => {
   return (
@@ -22,9 +23,7 @@ const Routes: React.FC = () => {
         <PrivateRoute path='/recent-games' component={RecentGames} />
         <PrivateRoute path='/new-bet' component={NewBetPage} />
         <PrivateRoute path='/account' component={AccountPage} />
-        <Route path='*'>
-          <Redirect to='/' />
-        </Route>
+        <Route path='*' component={NotFoundPage} />
       </Switch>
       <Footer />
     </BrowserRouter>
