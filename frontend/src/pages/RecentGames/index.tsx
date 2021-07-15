@@ -3,15 +3,16 @@ import { HiOutlineArrowRight } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 import { Header, BetCard, GamesContainer } from './styles'
 import { Button } from '../../styles/Button'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppStore } from '../../store'
 import { formatDate, formatMoney } from '../../utils/formatValue'
-import { BetState } from '../../store/ducks/Bets'
+import { BetState, resetSuccess } from '../../store/ducks/Bets'
 import { useTypes } from '../../hooks/useTypes'
 
 const RecentGames: React.FC = () => {
   const { myNets } = useSelector<AppStore, BetState>(state => state.Bets)
   const [filteredGames, setFilteredGames] = useState(myNets)
+  const dispatch = useDispatch()
   const { types } = useTypes()
   const [filter, setFilter] = useState('')
   useEffect(() => {
@@ -21,6 +22,10 @@ const RecentGames: React.FC = () => {
       setFilteredGames(myNets)
     }
   }, [filter])
+
+  useEffect(() => {
+    dispatch(resetSuccess())
+  }, [])
 
   return (
     <GamesContainer>

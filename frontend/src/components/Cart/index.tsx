@@ -9,16 +9,18 @@ import { HiOutlineArrowRight } from 'react-icons/hi'
 import { BsTrash } from 'react-icons/bs'
 import { BetCard, CartContainer } from './styles'
 import { BetState, saveBetsRequest } from '../../store/ducks/Bets'
-// import { useTypes } from '../../hooks/useTypes'
 import { NewBetProps } from '../../pages/NewBet'
+import { useHistory } from 'react-router-dom'
 
 const Cart: React.FC<NewBetProps> = ({ types }) => {
   const { totalBetValue, bets } = useSelector<AppStore, CartState>(
     state => state.Cart,
   )
-  // const { types } = useTypes()
-  const { error } = useSelector<AppStore, BetState>(state => state.Bets)
+  const { error, success } = useSelector<AppStore, BetState>(
+    state => state.Bets,
+  )
   const dispatch = useDispatch()
+  const { push } = useHistory()
 
   const deleteBetHandler = (index: number) => {
     dispatch(removeBet(index))
@@ -49,7 +51,10 @@ const Cart: React.FC<NewBetProps> = ({ types }) => {
     if (error) {
       toast.error(error)
     }
-  }, [error])
+    if (success) {
+      push('/recent-games')
+    }
+  }, [error, success])
 
   useEffect(() => {
     if (bets.length !== 0) {

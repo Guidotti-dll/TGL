@@ -17,15 +17,9 @@ export function* handleSaveBets({
       throw new Error('Não há apostas')
     }
 
-    toast.success(
-      'Suas apostas foram feitas com sucesso e estão disponíveis na Home!',
-    )
-    toast.success('Continue apostando para aumentar suas chances de ganhar!!', {
-      autoClose: 7000,
-    })
-
     yield put(clearCart())
     yield put(saveBetsSuccess(payload.bets))
+    toast.success('Suas apostas foram feitas com sucesso!')
   } catch (error) {
     yield put(saveBetsFailure(error.message))
   }
