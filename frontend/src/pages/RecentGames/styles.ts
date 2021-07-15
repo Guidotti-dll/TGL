@@ -4,8 +4,11 @@ import { colors } from '../../constants/colors'
 import { Container } from '../../styles/DashContainer'
 
 export const GamesContainer = styled(Container)`
+  overflow-y: unset;
   ul {
     margin-top: 38px;
+    max-height: 85%;
+    overflow-y: scroll;
   }
   .gamesEmpty {
     margin-top: 15px;
