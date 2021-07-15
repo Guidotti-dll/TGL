@@ -27,6 +27,7 @@ export const GameContainer = styled.div`
     ul {
       margin-top: 20px;
       display: flex;
+      flex-wrap: wrap;
     }
   }
 
@@ -50,6 +51,7 @@ export const GameContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-top: 44px;
     button {
       height: 52px;
