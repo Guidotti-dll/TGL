@@ -14,10 +14,10 @@ export const CartContainer = styled.div`
     h1 {
       font-size: 24px;
       font-style: italic;
-      padding: 0 0 30px 0;
+      padding: 0 0 35px 0;
     }
     ul {
-      max-height: 250px;
+      max-height: 178px;
       overflow-y: scroll;
     }
     .total {
@@ -45,13 +45,17 @@ export const CartContainer = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+      svg {
+        margin-left: 16px;
+      }
     }
   }
 `
 
 export const BetCard = styled.li`
-  height: 86px;
-  padding: 7px 0;
+  height: 100%;
+  max-height: 86px;
+  /* padding: 7px 0; */
   list-style: none;
   margin-bottom: 30px;
   display: flex;
@@ -66,6 +70,7 @@ export const BetCard = styled.li`
   }
 
   .container {
+    padding: 7px 0;
     padding-left: 12px;
     margin-left: 15px;
     height: 100%;
@@ -78,6 +83,7 @@ export const BetCard = styled.li`
     strong {
       font-size: 15px;
       font-style: italic;
+      margin-bottom: 6px;
     }
     p {
       font-size: 16px;
