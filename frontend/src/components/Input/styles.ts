@@ -5,8 +5,8 @@ export const InputStyle = styled.div`
   flex-direction: column;
   width: 100%;
   border-bottom: 2px solid #ebebeb;
-  padding: 34px 0 26px 30px;
   input {
+    padding: 34px 30px 26px 30px;
     width: 100%;
     height: 80%;
     font-size: 17px;
@@ -19,7 +19,8 @@ export const InputStyle = styled.div`
 
   span {
     font-size: 13px;
-    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 30px;
     color: red;
   }
 
