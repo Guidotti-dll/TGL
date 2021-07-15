@@ -9,6 +9,7 @@ import SignUpPage from './pages/SignUp'
 import ResetPasswordPage from './pages/ResetPassword'
 import RecentGames from './pages/RecentGames'
 import NewBetPage from './pages/NewBet'
+import AccountPage from './pages/Account'
 
 const Routes: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const Routes: React.FC = () => {
         <Route path='/reset-password' component={ResetPasswordPage} />
         <PrivateRoute path='/recent-games' component={RecentGames} />
         <PrivateRoute path='/new-bet' component={NewBetPage} />
+        <PrivateRoute path='/account' component={AccountPage} />
         <Route path='*'>
           <Redirect to='/' />
         </Route>
