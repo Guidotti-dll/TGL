@@ -53,9 +53,11 @@ export const Nav = styled.header`
     height: 100%;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     ul {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       list-style: none;
       li {
         button {
