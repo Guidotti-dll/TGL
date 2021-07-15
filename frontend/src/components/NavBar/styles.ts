@@ -35,7 +35,7 @@ export const Nav = styled.header`
 
       &::before {
         position: absolute;
-        bottom: -15px;
+        bottom: -16px;
         content: '';
         width: 107px;
         height: 7px;
