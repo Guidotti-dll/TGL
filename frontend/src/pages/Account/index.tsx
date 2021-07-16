@@ -13,8 +13,8 @@ const AccountPage: React.FC = () => {
         <h1>My infos</h1>
 
         <div className='infos'>
-          <Input name='name' type='text' value={user.name} />
-          <Input name='email' type='email' value={user.email} />
+          <Input name='name' readOnly type='text' value={user.name} />
+          <Input name='email' readOnly type='email' value={user.email} />
           <button>Update</button>
         </div>
       </div>
