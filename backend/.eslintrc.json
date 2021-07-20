@@ -4,6 +4,9 @@
         "commonjs": true,
         "es2021": true
     },
+    "globals": {
+      "use": true
+    },
     "extends": [
         "standard"
     ],
