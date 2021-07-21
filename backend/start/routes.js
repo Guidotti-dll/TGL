@@ -17,6 +17,8 @@
 const Route = use('Route')
 
 Route.post('users', 'UserController.store').validator('User')
+Route.get('users', 'UserController.index')
+Route.get('users/:id', 'UserController.show')
 Route.post('sessions', 'SessionController.store').validator('Session')
 Route.get('confirm-account/:id', 'SessionController.confirmAccount')
 
@@ -24,6 +26,8 @@ Route.post('passwords', 'ForgotPasswordController.store').validator('ForgotPassw
 Route.put('passwords', 'ForgotPasswordController.update').validator('ResetPassword')
 
 Route.group(() => {
+  Route.patch('users/:id', 'UserController.update')
+  Route.delete('users/:id', 'UserController.destroy')
   Route.resource('games', 'GameController')
     .apiOnly()
     .validator(new Map([[['games.store'], ['CreatedGame']], [['games.update'], ['UpdatedGame']]]))
