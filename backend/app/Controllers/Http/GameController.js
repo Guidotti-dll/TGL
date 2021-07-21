@@ -10,11 +10,11 @@ class GameController {
 
   async store ({ request }) {
     const data = request.only(['type', 'description', 'range', 'price', 'color', 'max-number', 'min-cart-value'])
-    const game = Game.create(data)
+    const game = await Game.create(data)
     return game
   }
 
-  async show ({ params, request, response, view }) {
+  async show ({ params, response }) {
     const game = await Game.findBy('id', params.id)
     if (!game) {
       return response.status(404).send({ error: { message: 'Game not found' } })
