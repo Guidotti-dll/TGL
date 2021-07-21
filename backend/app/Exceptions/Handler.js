@@ -26,6 +26,9 @@ class ExceptionHandler extends BaseExceptionHandler {
     if (error.name === 'ValidationException') {
       return response.status(error.status).send(error.messages)
     }
+    if (error.name === 'InvalidJwtToken') {
+      return response.status(401).send({ error: { message: 'Authentication failure' } })
+    }
 
     if (Env.get('NODE_ENV') === 'development') {
       const youch = new Youch(error, request.request)
