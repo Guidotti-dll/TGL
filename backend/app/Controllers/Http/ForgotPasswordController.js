@@ -28,8 +28,8 @@ class ForgotPasswordController {
       )
     } catch (error) {
       return response
-        .status(error.status)
-        .send({ error: { message: 'Algo não deu certo, esse e-mail existe?' } })
+        .status(404)
+        .send({ error: { message: 'User not found' } })
     }
   }
 

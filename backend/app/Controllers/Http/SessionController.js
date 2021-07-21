@@ -23,7 +23,7 @@ class SessionController {
   async confirmAccount ({ params, response }) {
     const user = await User.findBy('id', params.id)
     if (!user) {
-      return response.status(404).send({ error: { message: 'User not Found' } })
+      return response.status(404).send({ error: { message: 'User not found' } })
     }
     if (user && user.is_confirmed) {
       return response.status(400).send({ error: { message: 'This account is already confirmed' } })
