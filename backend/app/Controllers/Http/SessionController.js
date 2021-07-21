@@ -1,10 +1,38 @@
 'use strict'
 
+const User = use('App/Models/User')
+
 class SessionController {
-  async store ({ request, auth }) {
+  async store ({ request, response, auth }) {
     const { email, password } = request.all()
-    const token = await auth.attempt(email, password)
-    return token
+
+    const user = await User.findBy('email', email)
+
+    if (user && !user.is_confirmed) {
+      return response.status(401).send({ error: { message: 'Unconfirmed account, check your email' } })
+    }
+
+    try {
+      const token = await auth.attempt(email, password)
+      return token
+    } catch (error) {
+      return response.status(error.status).send({ error: { message: 'Invalid email or password' } })
+    }
+  }
+
+  async confirmAccount ({ params, response }) {
+    const user = await User.findBy('id', params.id)
+    if (!user) {
+      return response.status(404).send({ error: { message: 'User not Found' } })
+    }
+    if (user && user.is_confirmed) {
+      return response.status(400).send({ error: { message: 'This account is already confirmed' } })
+    }
+
+    user.is_confirmed = true
+    user.save()
+    return response.status(200).send({ account: 'Confirmed' })
+    // return response.status(200).redirect('http://localhost:3000?confirm=true')
   }
 }
 
