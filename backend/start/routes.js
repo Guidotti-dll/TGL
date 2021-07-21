@@ -22,3 +22,9 @@ Route.get('confirm-account/:id', 'SessionController.confirmAccount')
 
 Route.post('passwords', 'ForgotPasswordController.store').validator('ForgotPassword')
 Route.put('passwords', 'ForgotPasswordController.update').validator('ResetPassword')
+
+Route.group(() => {
+  Route.resource('games', 'GameController')
+    .apiOnly()
+    .validator(new Map([[['games.store'], ['CreatedGame']], [['games.update'], ['UpdatedGame']]]))
+}).middleware(['auth'])
