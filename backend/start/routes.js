@@ -31,4 +31,6 @@ Route.group(() => {
   Route.resource('games', 'GameController')
     .apiOnly()
     .validator(new Map([[['games.store'], ['CreatedGame']], [['games.update'], ['UpdatedGame']]]))
+  Route.resource('bets', 'BetController')
+    .apiOnly()
 }).middleware(['auth'])
