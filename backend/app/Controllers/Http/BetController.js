@@ -42,16 +42,16 @@ class BetController {
         numbers: bet.numbers.join(',')
       }
 
-      await Bet.create(data, trx)
+      const newBet = await Bet.create(data, trx)
 
       betsEmail.push({
+        ...newBet.$attributes,
         type: game.type,
         color: game.color,
-        price: game.price.toLocaleString('pt-br', {
+        price: newBet.price.toLocaleString('pt-br', {
           style: 'currency',
           currency: 'BRL'
-        }),
-        numbers: bet.numbers.join(',')
+        })
       })
     }
 
@@ -63,7 +63,7 @@ class BetController {
 
     Kue.dispatch(Job.key, { email: auth.user.email, name: auth.user.name, bets: betsEmail }, { attempts: 3 })
 
-    return bets
+    return betsEmail
   }
 
   async show ({ params, response }) {
