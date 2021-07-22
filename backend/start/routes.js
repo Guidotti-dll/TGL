@@ -22,8 +22,8 @@ Route.get('users/:id', 'UserController.show')
 Route.post('sessions', 'SessionController.store').validator('Session')
 Route.get('confirm-account/:id', 'SessionController.confirmAccount')
 
-Route.post('passwords', 'ForgotPasswordController.store').validator('ForgotPassword')
-Route.put('passwords', 'ForgotPasswordController.update').validator('ResetPassword')
+Route.post('forgot-password', 'ForgotPasswordController.store').validator('ForgotPassword')
+Route.put('reset-password', 'ForgotPasswordController.update').validator('ResetPassword')
 
 Route.group(() => {
   Route.patch('users/:id', 'UserController.update')
