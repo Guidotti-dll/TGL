@@ -1,6 +1,7 @@
 
 'use strict'
 
+const Antl = use('Antl')
 class UpdatedGame {
   get validateAll () {
     return true
@@ -16,6 +17,10 @@ class UpdatedGame {
       'max-number': 'number',
       'min-cart-value': 'number'
     }
+  }
+
+  get messages () {
+    return Antl.list('validation')
   }
 }
 
