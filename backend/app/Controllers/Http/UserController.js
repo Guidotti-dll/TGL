@@ -41,6 +41,10 @@ class UserController {
     const user = await User.findBy('id', params.id)
     const data = request.only(['name', 'email', 'password'])
 
+    if (!user) {
+      return response.status(404).send({ error: { message: 'User not found' } })
+    }
+
     if (user.id !== auth.user.id) {
       return response.status(401).send({ error: { message: 'You can only update your own account' } })
     }
@@ -52,6 +56,11 @@ class UserController {
 
   async destroy ({ params, response, auth }) {
     const user = await User.findBy('id', params.id)
+
+    if (!user) {
+      return response.status(404).send({ error: { message: 'User not found' } })
+    }
+
     if (user.id !== auth.user.id) {
       return response.status(401).send({ error: { message: 'You can only delete your own account' } })
     }
