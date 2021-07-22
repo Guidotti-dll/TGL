@@ -20,6 +20,8 @@ class BetController {
     const { bets } = request.only(['bets'])
 
     const betsEmail = []
+    let minCartValue = 0
+    let totalCartPrice = 0
 
     const trx = await Database.beginTransaction()
 
@@ -29,12 +31,19 @@ class BetController {
         return response.status(400).send({ error: { message: 'Some of your bets doesn\'t have the correct amount of numbers' } })
       }
 
+      totalCartPrice += game.price
+
+      if (minCartValue < game['min-cart-value']) {
+        minCartValue = game['min-cart-value']
+      }
+
       const data = {
         game_id: game.id,
         user_id: auth.user.id,
         price: game.price,
         numbers: bet.numbers.join(',')
       }
+
       await Bet.create(data, trx)
 
       betsEmail.push({
@@ -46,6 +55,10 @@ class BetController {
         }),
         numbers: bet.numbers.join(',')
       })
+    }
+
+    if (totalCartPrice < minCartValue) {
+      return response.status(400).send({ error: { message: 'The value of your cart is less than the minimum accepted ' } })
     }
 
     await trx.commit()
