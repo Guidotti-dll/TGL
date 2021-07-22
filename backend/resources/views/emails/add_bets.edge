@@ -1,0 +1,19 @@
+<p>
+<strong>Criação de apostas</strong>
+</p>
+<strong>Olá {{ name }}!!</strong>
+<p>Suas apostas feitas no The Greatest Lottery foram criadas com sucesso!!</p>
+<p>Estas foram as suas apostas</p>
+<ul>
+@each(bet in bets)
+  <li>
+    <strong
+          style="color: {{ bet.color }}"
+        >
+        {{bet.type}}
+        </strong> - <span>{{bet.price}}</span>
+        <p>{{bet.numbers}}</p>
+  </li>
+    @endeach
+</ul>
+

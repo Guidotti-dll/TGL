@@ -4,6 +4,10 @@ const Bet = use('App/Models/Bet')
 const Game = use('App/Models/Game')
 
 const Database = use('Database')
+const Env = use('Env')
+const Mail = use('Mail')
+const tglEmail = Env.get('MAIL_EMAIL')
+const tglName = Env.get('MAIL_NAME')
 
 class BetController {
   async index ({ request, response, view }) {
@@ -14,6 +18,8 @@ class BetController {
 
   async store ({ request, response, auth }) {
     const { bets } = request.only(['bets'])
+
+    const betsEmail = []
 
     const trx = await Database.beginTransaction()
 
@@ -30,9 +36,27 @@ class BetController {
         numbers: bet.numbers.join(',')
       }
       await Bet.create(data, trx)
+
+      betsEmail.push({
+        type: game.type,
+        color: game.color,
+        price: game.price.toLocaleString('pt-br', {
+          style: 'currency',
+          currency: 'BRL'
+        }),
+        numbers: bet.numbers.join(',')
+      })
     }
 
     await trx.commit()
+
+    await Mail.send(
+      ['emails.add_bets'],
+      { name: auth.user.name, bets: betsEmail },
+      message => {
+        message.to(auth.user.email).from(tglEmail, tglName).subject('Criação de apostas')
+      }
+    )
 
     return bets
   }
