@@ -17,7 +17,7 @@ class BetController {
   async store ({ request, response, auth }) {
     const { bets } = request.only(['bets'])
 
-    const betsEmail = []
+    const newBets = []
     let minCartValue = 0
     let totalCartPrice = 0
 
@@ -44,14 +44,11 @@ class BetController {
 
       const newBet = await Bet.create(data, trx)
 
-      betsEmail.push({
+      newBets.push({
         ...newBet.$attributes,
         type: game.type,
         color: game.color,
-        price: newBet.price.toLocaleString('pt-br', {
-          style: 'currency',
-          currency: 'BRL'
-        })
+        price: newBet.price
       })
     }
 
@@ -59,11 +56,21 @@ class BetController {
       return response.status(400).send({ error: { message: 'The value of your cart is less than the minimum accepted ' } })
     }
 
+    const betsEmail = newBets.map(bet => {
+      return {
+        ...bet,
+        price: bet.price.toLocaleString('pt-br', {
+          style: 'currency',
+          currency: 'BRL'
+        })
+      }
+    })
+
     await trx.commit()
 
     Kue.dispatch(Job.key, { email: auth.user.email, name: auth.user.name, bets: betsEmail }, { attempts: 3 })
 
-    return betsEmail
+    return newBets
   }
 
   async show ({ params, response }) {
