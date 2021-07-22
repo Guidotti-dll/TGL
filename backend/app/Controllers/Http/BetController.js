@@ -4,10 +4,8 @@ const Bet = use('App/Models/Bet')
 const Game = use('App/Models/Game')
 
 const Database = use('Database')
-const Env = use('Env')
-const Mail = use('Mail')
-const tglEmail = Env.get('MAIL_EMAIL')
-const tglName = Env.get('MAIL_NAME')
+const Kue = use('Kue')
+const Job = use('App/Jobs/NewBetMail')
 
 class BetController {
   async index ({ request, response, view }) {
@@ -63,13 +61,7 @@ class BetController {
 
     await trx.commit()
 
-    await Mail.send(
-      ['emails.add_bets'],
-      { name: auth.user.name, bets: betsEmail },
-      message => {
-        message.to(auth.user.email).from(tglEmail, tglName).subject('Criação de apostas')
-      }
-    )
+    Kue.dispatch(Job.key, { email: auth.user.email, name: auth.user.name, bets: betsEmail }, { attempts: 3 })
 
     return bets
   }
