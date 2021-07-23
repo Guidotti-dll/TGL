@@ -17,21 +17,17 @@ class BetController {
 
   async store ({ request, response, auth }) {
     const { bets } = request.only(['bets'])
-
     const newBets = []
     let minCartValue = 0
     let totalCartPrice = 0
 
     const trx = await Database.beginTransaction()
-
     for (const bet of bets) {
       const game = await Game.find(bet.game_id)
       if (bet.numbers.length !== game['max-number']) {
         return response.status(400).send({ error: { message: 'Some of your bets doesn\'t have the correct amount of numbers' } })
       }
-
       totalCartPrice += game.price
-
       if (minCartValue < game['min-cart-value']) {
         minCartValue = game['min-cart-value']
       }
@@ -68,9 +64,7 @@ class BetController {
     })
 
     await trx.commit()
-
     Kue.dispatch(Job.key, { email: auth.user.email, name: auth.user.name, bets: betsEmail }, { attempts: 3 })
-
     return newBets
   }
 
