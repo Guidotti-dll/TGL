@@ -9,7 +9,8 @@ const Job = use('App/Jobs/NewBetMail')
 
 class BetController {
   async index ({ request, response, view }) {
-    const bets = await Bet.query().with('game').paginate()
+    const { page } = request.get()
+    const bets = await Bet.query().with('game').paginate(page)
 
     return bets
   }
