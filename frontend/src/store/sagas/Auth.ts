@@ -19,6 +19,7 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
     api.defaults.headers.authorization = `Bearer ${data.token.token}`
     yield sessionStorage.setItem('token', data.token.token)
     const user: User = {
+      id: data.user.id,
       name: data.user.name,
       email: data.user.email,
     }

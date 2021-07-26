@@ -29,3 +29,17 @@ export const SignUpSchema = AuthSchema.shape({
 })
   .concat(EmailSchema)
   .concat(ResetPasswordSchema)
+
+export const ProfileSchema = yup
+  .object()
+  .shape({
+    name: yup.string().required('Este campo é obrigatório'),
+    password: yup
+      .string()
+      .test(
+        'password',
+        'Minimo 8 caracteres',
+        value => value === '' || value!.length >= 8,
+      ),
+  })
+  .concat(EmailSchema)
