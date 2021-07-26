@@ -8,9 +8,9 @@ export const useTypes = () => {
 
   useEffect(() => {
     api
-      .get('/games.json')
+      .get('/games')
       .then(({ data }) => {
-        setTypes(data.types)
+        setTypes(data)
       })
       .catch(error => toast.error(error.message))
   }, [])
