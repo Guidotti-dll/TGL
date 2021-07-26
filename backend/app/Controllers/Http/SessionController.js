@@ -14,7 +14,7 @@ class SessionController {
 
     try {
       const token = await auth.attempt(email, password)
-      return token
+      return { token, user }
     } catch (error) {
       return response.status(error.status).send({ error: { message: 'Invalid email or password' } })
     }
