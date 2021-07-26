@@ -1,7 +1,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { HiOutlineArrowRight } from 'react-icons/hi'
-import { Link, useHistory, useParams } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
 import Input from '../Input'
