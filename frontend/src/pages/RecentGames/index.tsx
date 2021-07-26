@@ -70,7 +70,7 @@ const RecentGames: React.FC = () => {
         {filteredGames.map((game, index) => (
           <BetCard color={game.color} key={index}>
             <div className='container'>
-              <strong>{game.numbers.sort((a, b) => a - b).join(', ')}</strong>
+              <strong>{game.numbers}</strong>
               <p>
                 {formatDate(game.date)} - ({formatMoney(game.price)})
               </p>
