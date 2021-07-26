@@ -7,11 +7,13 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Input from '../Input'
 import { FormContainer } from '../../styles/FormContainer'
 import { SignUpSchema } from '../../utils/schemas'
+import api from '../../services/api'
 
 type LoginInfos = {
   name: string
   email: string
   password: string
+  passwordConfirmation: string
 }
 
 const SignUpForm: React.FC = () => {
@@ -22,10 +24,30 @@ const SignUpForm: React.FC = () => {
     formState: { errors },
   } = useForm<LoginInfos>({ resolver: yupResolver(SignUpSchema) })
 
-  const onSubmit: SubmitHandler<LoginInfos> = data => {
-    console.log(data)
-    toast.success('Conta criada com sucesso!!')
-    push('/')
+  const onSubmit: SubmitHandler<LoginInfos> = async ({
+    name,
+    email,
+    password,
+    passwordConfirmation,
+  }) => {
+    try {
+      await api.post('/users', {
+        email,
+        name,
+        password,
+        password_confirmation: passwordConfirmation,
+      })
+
+      toast.success(
+        'Conta criada com sucesso!! Confirme sua conta no seu email',
+      )
+      push('/')
+    } catch (error) {
+      error.response.data.forEach((error: { message: string }) => {
+        toast.error(error.message)
+      })
+      console.log()
+    }
   }
 
   return (
@@ -49,6 +71,12 @@ const SignUpForm: React.FC = () => {
           placeholder='Password'
           {...register('password')}
           error={errors.password?.message}
+        />
+        <Input
+          type='password'
+          placeholder='Password Confirmation'
+          {...register('passwordConfirmation')}
+          error={errors.passwordConfirmation?.message}
         />
         <button className='button'>
           Register
