@@ -35,7 +35,7 @@ class ForgotPasswordController {
 
   async update ({ request, response }) {
     try {
-      const { token, password } = request.all()
+      const { token, password } = await request.all()
 
       const user = await User.findByOrFail('token', token)
 
@@ -53,7 +53,7 @@ class ForgotPasswordController {
       await user.save()
     } catch (error) {
       return response
-        .status(error.status)
+        .status(400)
         .send({ error: { message: 'Algo deu errado ao salvar sua nova senha' } })
     }
   }
