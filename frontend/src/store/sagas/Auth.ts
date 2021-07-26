@@ -1,22 +1,22 @@
-import { put, all, takeEvery, fork } from 'redux-saga/effects'
+import { put, all, takeEvery, fork, call } from 'redux-saga/effects'
 import { User } from '../../interfaceies/user'
+import api from '../../services/api'
 import { loginSuccess, loginRequest, loginFailure, Types } from '../ducks/Auth'
 import { clearMyBets } from '../ducks/Bets'
 import { clearCart } from '../ducks/Cart'
 
 export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
-    if (payload.email !== 'teste@test.com' || payload.password !== '12345678') {
-      throw new Error('Usuário inválido')
-    }
+    const { data } = yield call(api.post, '/sessions', payload)
+    yield sessionStorage.setItem('token', data.token)
     const user: User = {
-      name: 'lucas',
-      email: payload.email,
+      name: data.user.name,
+      email: data.user.email,
     }
 
-    yield put(loginSuccess(user, '5456465645da465sd46a465ad'))
+    yield put(loginSuccess(user, data.token.token))
   } catch (error) {
-    yield put(loginFailure(error.message))
+    yield put(loginFailure(error.response.data.error.message))
   }
 }
 
