@@ -52,6 +52,16 @@ class UserController {
       return response.status(401).send({ error: { message: 'You can only update your own account' } })
     }
 
+    if (!data.password) {
+      await delete data.password
+    }
+
+    const userTest = await User.findBy('email', data.email)
+
+    if (userTest.id !== user.id) {
+      return response.status(400).send({ error: { message: 'This email is already being used' } })
+    }
+
     await user.merge(data)
     await user.save()
     return user
