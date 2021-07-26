@@ -14,19 +14,22 @@ class UserController {
     return users
   }
 
-  async store ({ request }) {
+  async store ({ request, response }) {
     const data = request.only(['name', 'email', 'password'])
+    try {
+      const user = await User.create(data)
+      await Mail.send(
+        ['emails.confirmation_account'],
+        { name: user.name, link: `${url}/confirm-account/${user.id}` },
+        message => {
+          message.to(user.email).from(tglEmail, tglName).subject('Confirmar conta')
+        }
+      )
 
-    const user = await User.create(data)
-    await Mail.send(
-      ['emails.confirmation_account'],
-      { name: user.name, link: `${url}/confirm-account/${user.id}` },
-      message => {
-        message.to(user.email).from(tglEmail, tglName).subject('Confirmar conta')
-      }
-    )
-
-    return user
+      return user
+    } catch (error) {
+      return response.status(error.status).send({ error: { message: error.message } })
+    }
   }
 
   async show ({ params, response }) {

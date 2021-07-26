@@ -1,6 +1,7 @@
 'use strict'
 
 const User = use('App/Models/User')
+// const Env = use('Env')
 
 class SessionController {
   async store ({ request, response, auth }) {
@@ -31,8 +32,13 @@ class SessionController {
 
     user.is_confirmed = true
     user.save()
-    return response.status(200).send({ account: 'Confirmed' })
-    // return response.status(200).redirect('http://localhost:3000?confirm=true')
+
+    // if (Env.get('NODE_ENV') === 'development') {
+    //   return response.status(200).send({ account: 'Confirmed' })
+    // }else {
+    //   return response.status(200).redirect('http://localhost:3000?confirm=true')
+    // }
+    return response.status(200).redirect('http://localhost:3000?confirm=true')
   }
 }
 
