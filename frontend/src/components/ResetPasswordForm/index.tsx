@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import Input from '../Input'
 import { EmailSchema } from '../../utils/schemas'
 import { FormContainer } from '../../styles/FormContainer'
+import api from '../../services/api'
 
 type LoginInfos = {
   email: string
@@ -20,12 +21,20 @@ const ResetPasswordForm: React.FC = () => {
     formState: { errors },
   } = useForm<LoginInfos>({ resolver: yupResolver(EmailSchema) })
 
-  const onSubmit: SubmitHandler<LoginInfos> = data => {
-    console.log(data)
-    toast.success(
-      'Enviamos um link para o seu email para recuperar a sua senha!!',
-    )
-    push('/')
+  const onSubmit: SubmitHandler<LoginInfos> = async ({ email }) => {
+    try {
+      await api.post('/forgot-password', {
+        email,
+        redirect_url: 'http://localhost:3000/reset-password',
+      })
+
+      toast.success(
+        'Enviamos um link para o seu email para recuperar a sua senha!!',
+      )
+      push('/')
+    } catch (error) {
+      toast.error(error.response.data.error.message)
+    }
   }
 
   return (
