@@ -57,7 +57,7 @@ const LoginAuth: React.FC = () => {
           {...register('password')}
           error={errors.password?.message}
         />
-        <Link to='/reset-password'>I forget my password</Link>
+        <Link to='/forgot-password'>I forget my password</Link>
         <button className='button'>
           Log In <HiOutlineArrowRight />
         </button>

@@ -19,7 +19,7 @@ const Routes: React.FC = () => {
       <Switch>
         <Route path='/' exact component={AuthPage} />
         <Route path='/signup' component={SignUpPage} />
-        <Route path='/reset-password' component={ResetPasswordPage} />
+        <Route path='/forgot-password' component={ResetPasswordPage} />
         <PrivateRoute path='/recent-games' component={RecentGames} />
         <PrivateRoute path='/new-bet' component={NewBetPage} />
         <PrivateRoute path='/account' component={AccountPage} />
