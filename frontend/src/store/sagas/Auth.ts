@@ -1,20 +1,41 @@
+import { AxiosResponse } from 'axios'
 import { put, all, takeEvery, fork, call } from 'redux-saga/effects'
+import { Game, Type } from '../../interfaceies/game'
 import { User } from '../../interfaceies/user'
 import api from '../../services/api'
 import { loginSuccess, loginRequest, loginFailure, Types } from '../ducks/Auth'
-import { clearMyBets } from '../ducks/Bets'
+import { clearMyBets, saveBetsSuccess } from '../ducks/Bets'
 import { clearCart } from '../ducks/Cart'
+
+interface betRequest extends Game {
+  game: Type
+  // eslint-disable-next-line camelcase
+  created_at: string
+}
 
 export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
     const { data } = yield call(api.post, '/sessions', payload)
-    yield sessionStorage.setItem('token', data.token)
+    api.defaults.headers.authorization = `Bearer ${data.token.token}`
+    yield sessionStorage.setItem('token', data.token.token)
     const user: User = {
       name: data.user.name,
       email: data.user.email,
     }
-
     yield put(loginSuccess(user, data.token.token))
+
+    const response: AxiosResponse = yield call(api.get, '/bets')
+
+    const bets = response.data.data.map((bet: betRequest) => {
+      return {
+        type: bet.game.type,
+        color: bet.game.color,
+        date: bet.created_at,
+        price: bet.price,
+        numbers: bet.numbers,
+      }
+    })
+    yield put(saveBetsSuccess(bets))
   } catch (error) {
     yield put(loginFailure(error.response.data.error.message))
   }
