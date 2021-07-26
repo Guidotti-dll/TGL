@@ -14,10 +14,6 @@ export const AuthSchema = EmailSchema.shape({
     .required('Este campo é obrigatório'),
 })
 
-export const SignUpSchema = AuthSchema.shape({
-  name: yup.string().required('Este campo é obrigatório'),
-})
-
 export const ResetPasswordSchema = yup.object().shape({
   password: yup
     .string()
@@ -27,3 +23,9 @@ export const ResetPasswordSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password'), null], 'As senhas não coincidem '),
 })
+
+export const SignUpSchema = AuthSchema.shape({
+  name: yup.string().required('Este campo é obrigatório'),
+})
+  .concat(EmailSchema)
+  .concat(ResetPasswordSchema)
