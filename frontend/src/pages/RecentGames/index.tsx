@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
+import Pagination from '@material-ui/lab/Pagination'
 import { Header, BetCard, GamesContainer } from './styles'
 import { Button } from '../../styles/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStore } from '../../store'
 import { formatDate, formatMoney } from '../../utils/formatValue'
-import { BetState, resetSuccess } from '../../store/ducks/Bets'
+import { BetState, getBetsRequest, resetSuccess } from '../../store/ducks/Bets'
 import { useTypes } from '../../hooks/useTypes'
 
 const RecentGames: React.FC = () => {
-  const { myNets } = useSelector<AppStore, BetState>(state => state.Bets)
+  const { myNets, maxPages } = useSelector<AppStore, BetState>(
+    state => state.Bets,
+  )
   const [filteredGames, setFilteredGames] = useState(myNets)
+  const [page, setPage] = useState(1)
   const dispatch = useDispatch()
   const { types } = useTypes()
   const [filter, setFilter] = useState('')
@@ -23,9 +27,22 @@ const RecentGames: React.FC = () => {
     }
   }, [filter])
 
+  console.log(myNets)
+
   useEffect(() => {
     dispatch(resetSuccess())
+    if (myNets.length === 0) {
+      dispatch(getBetsRequest(page))
+    }
   }, [])
+
+  const handleChangePage = (
+    event: React.ChangeEvent<unknown>,
+    value: number,
+  ) => {
+    setPage(value)
+    dispatch(getBetsRequest(value))
+  }
 
   return (
     <GamesContainer>
@@ -79,6 +96,12 @@ const RecentGames: React.FC = () => {
           </BetCard>
         ))}
       </ul>
+      <Pagination
+        count={maxPages}
+        color='primary'
+        page={page}
+        onChange={handleChangePage}
+      />
     </GamesContainer>
   )
 }
