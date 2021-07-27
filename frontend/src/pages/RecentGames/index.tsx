@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
-import Pagination from '@material-ui/lab/Pagination'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import { Header, BetCard, GamesContainer } from './styles'
 import { Button } from '../../styles/Button'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,11 +11,10 @@ import { BetState, getBetsRequest, resetSuccess } from '../../store/ducks/Bets'
 import { useTypes } from '../../hooks/useTypes'
 
 const RecentGames: React.FC = () => {
-  const { myBets, maxPages } = useSelector<AppStore, BetState>(
+  const { myBets, actualPage } = useSelector<AppStore, BetState>(
     state => state.Bets,
   )
   const [filteredGames, setFilteredGames] = useState(myBets)
-  const [page, setPage] = useState(1)
   const dispatch = useDispatch()
   const { types } = useTypes()
   const [filter, setFilter] = useState('')
@@ -27,21 +26,15 @@ const RecentGames: React.FC = () => {
     }
   }, [filter, myBets])
 
-  console.log(myBets)
-
   useEffect(() => {
     dispatch(resetSuccess())
     if (myBets.length === 0) {
-      dispatch(getBetsRequest(page))
+      dispatch(getBetsRequest(actualPage, myBets.length))
     }
   }, [])
 
-  const handleChangePage = (
-    event: React.ChangeEvent<unknown>,
-    value: number,
-  ) => {
-    setPage(value)
-    dispatch(getBetsRequest(value))
+  const handleChangePage = () => {
+    dispatch(getBetsRequest(actualPage, myBets.length))
   }
 
   return (
@@ -55,8 +48,8 @@ const RecentGames: React.FC = () => {
             {types.map(type => (
               <Button
                 onClick={() => {
-                  setFilter(prevstate =>
-                    prevstate === type.type ? '' : type.type,
+                  setFilter(prevState =>
+                    prevState === type.type ? '' : type.type,
                   )
                 }}
                 color={type.color}
@@ -83,25 +76,27 @@ const RecentGames: React.FC = () => {
           <span>Você não possui jogos do tipo {filter} cadastrados</span>
         </div>
       )}
-      <ul>
-        {filteredGames.map((game, index) => (
-          <BetCard color={game.color} key={index}>
-            <div className='container'>
-              <strong>{game.numbers}</strong>
-              <p>
-                {formatDate(game.date)} - ({formatMoney(game.price)})
-              </p>
-              <strong className='type'>{game.type}</strong>
-            </div>
-          </BetCard>
-        ))}
+      <ul id='scrollableDiv'>
+        <InfiniteScroll
+          dataLength={filteredGames.length}
+          next={handleChangePage}
+          hasMore={true}
+          loader={<p></p>}
+          scrollableTarget='scrollableDiv'
+        >
+          {filteredGames.map((game, index) => (
+            <BetCard color={game.color} key={index}>
+              <div className='container'>
+                <strong>{game.numbers}</strong>
+                <p>
+                  {formatDate(game.date)} - ({formatMoney(game.price)})
+                </p>
+                <strong className='type'>{game.type}</strong>
+              </div>
+            </BetCard>
+          ))}
+        </InfiniteScroll>
       </ul>
-      <Pagination
-        count={maxPages}
-        color='primary'
-        page={page}
-        onChange={handleChangePage}
-      />
     </GamesContainer>
   )
 }

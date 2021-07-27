@@ -39,23 +39,27 @@ export function* handleSaveBets({
 
 export function* handleGetBets({ payload }: ReturnType<typeof getBetsRequest>) {
   try {
-    console.log(payload.page)
     const response: AxiosResponse = yield call(
       api.get,
       `/bets?page=${payload.page}`,
     )
+    console.log(+response.data.total)
 
-    const bets = response.data.data.map((bet: betRequest) => {
-      return {
-        type: bet.game.type,
-        color: bet.game.color,
-        date: bet.created_at,
-        price: bet.price,
-        numbers: bet.numbers,
-      }
-    })
+    if (+response.data.total > payload.total) {
+      const bets = response.data.data.map((bet: betRequest) => {
+        return {
+          type: bet.game.type,
+          color: bet.game.color,
+          date: bet.created_at,
+          price: bet.price,
+          numbers: bet.numbers,
+        }
+      })
 
-    yield put(getBetsSuccess(bets, response.data.lastPage))
+      const page = bets.length < 20 ? payload.page : payload.page + 1
+
+      yield put(getBetsSuccess(bets, page))
+    }
   } catch (error) {
     yield put(getBetsFailure(error.message))
   }

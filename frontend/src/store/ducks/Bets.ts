@@ -14,7 +14,7 @@ export const Types = {
 
 export interface BetState {
   myBets: Game[]
-  maxPages: number
+  actualPage: number
   loading: boolean
   error: string
   success: boolean
@@ -22,7 +22,7 @@ export interface BetState {
 
 const initialState: BetState = {
   myBets: [],
-  maxPages: 0,
+  actualPage: 1,
   loading: false,
   error: '',
   success: false,
@@ -52,7 +52,7 @@ const reducer: Reducer<BetState> = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        maxPages: action.payload.maxPages,
+        actualPage: action.payload.actualPage,
         success: true,
         error: '',
         myBets: [...state.myBets, ...action.payload.bets],
@@ -69,7 +69,7 @@ const reducer: Reducer<BetState> = (state = initialState, action) => {
         loading: false,
         error: '',
         success: false,
-        maxPages: 0,
+        actualPage: 0,
       }
     case Types.RESET_SUCCESS:
       return { ...state, success: false }
@@ -103,21 +103,22 @@ export const saveBetsFailure = (error: string) => {
   }
 }
 
-export const getBetsRequest = (page: number) => {
+export const getBetsRequest = (page: number, total: number) => {
   return {
     type: Types.GET_BETS_REQUEST,
     payload: {
       page,
+      total,
     },
   }
 }
 
-export const getBetsSuccess = (bets: Game[], maxPages: number) => {
+export const getBetsSuccess = (bets: Game[], actualPage: number) => {
   return {
     type: Types.GET_BETS_SUCCESS,
     payload: {
       bets,
-      maxPages,
+      actualPage,
     },
   }
 }
