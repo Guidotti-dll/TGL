@@ -2,8 +2,8 @@ import { Reducer } from 'redux'
 import { Game } from '../../interfaceies/game'
 
 export const Types = {
-  SAVE_BETS_REQUEST: 'bets/SAVE_BETS',
-  SAVE_BETS_SUCCESS: 'bets/LOGIN_SUCCESS',
+  SAVE_BETS_REQUEST: 'bets/SAVE_BETS_REQUEST',
+  SAVE_BETS_SUCCESS: 'bets/Save_BETS_SUCCESS',
   SAVE_BETS__FAILURE: 'bets/SAVE_BETS_fAILURE',
   GET_BETS_REQUEST: 'bets/GET_BETS',
   GET_BETS_SUCCESS: 'bets/GET_BETS_SUCCESS',
@@ -13,7 +13,7 @@ export const Types = {
 }
 
 export interface BetState {
-  myNets: Game[]
+  myBets: Game[]
   maxPages: number
   loading: boolean
   error: string
@@ -21,7 +21,7 @@ export interface BetState {
 }
 
 const initialState: BetState = {
-  myNets: [],
+  myBets: [],
   maxPages: 0,
   loading: false,
   error: '',
@@ -38,7 +38,7 @@ const reducer: Reducer<BetState> = (state = initialState, action) => {
         loading: false,
         success: true,
         error: '',
-        myBets: state.myNets.push(...action.payload.bets),
+        myBets: [...state.myBets, ...action.payload.bets],
       }
     case Types.SAVE_BETS__FAILURE:
       return {
@@ -55,7 +55,7 @@ const reducer: Reducer<BetState> = (state = initialState, action) => {
         maxPages: action.payload.maxPages,
         success: true,
         error: '',
-        myBets: state.myNets.push(...action.payload.bets),
+        myBets: [...state.myBets, ...action.payload.bets],
       }
     case Types.GET_BETS_FAILURE:
       return {
@@ -65,7 +65,7 @@ const reducer: Reducer<BetState> = (state = initialState, action) => {
       }
     case Types.CLEAR_MY_BETS:
       return {
-        myNets: [],
+        myBets: [],
         loading: false,
         error: '',
         success: false,

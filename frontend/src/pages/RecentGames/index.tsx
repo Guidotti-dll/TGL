@@ -11,27 +11,27 @@ import { BetState, getBetsRequest, resetSuccess } from '../../store/ducks/Bets'
 import { useTypes } from '../../hooks/useTypes'
 
 const RecentGames: React.FC = () => {
-  const { myNets, maxPages } = useSelector<AppStore, BetState>(
+  const { myBets, maxPages } = useSelector<AppStore, BetState>(
     state => state.Bets,
   )
-  const [filteredGames, setFilteredGames] = useState(myNets)
+  const [filteredGames, setFilteredGames] = useState(myBets)
   const [page, setPage] = useState(1)
   const dispatch = useDispatch()
   const { types } = useTypes()
   const [filter, setFilter] = useState('')
   useEffect(() => {
     if (filter) {
-      setFilteredGames(myNets.filter(game => game.type === filter))
+      setFilteredGames(myBets.filter(game => game.type === filter))
     } else {
-      setFilteredGames(myNets)
+      setFilteredGames(myBets)
     }
-  }, [filter])
+  }, [filter, myBets])
 
-  console.log(myNets)
+  console.log(myBets)
 
   useEffect(() => {
     dispatch(resetSuccess())
-    if (myNets.length === 0) {
+    if (myBets.length === 0) {
       dispatch(getBetsRequest(page))
     }
   }, [])
@@ -72,13 +72,13 @@ const RecentGames: React.FC = () => {
           New Bet <HiOutlineArrowRight />
         </Link>
       </Header>
-      {myNets.length === 0 && (
+      {myBets.length === 0 && (
         <div className='gamesEmpty'>
           <strong>Você não possui jogos cadastrados</strong>
           <span>Aposte um pouco, só não ganha quem não joga!!</span>
         </div>
       )}
-      {filter && filteredGames.length === 0 && myNets.length > 0 && (
+      {filter && filteredGames.length === 0 && myBets.length > 0 && (
         <div className='gamesEmpty'>
           <span>Você não possui jogos do tipo {filter} cadastrados</span>
         </div>
