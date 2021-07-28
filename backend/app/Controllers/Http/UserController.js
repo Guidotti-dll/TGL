@@ -1,12 +1,9 @@
 'use strict'
 
-const Env = use('Env')
 const User = use('App/Models/User')
-const Mail = use('Mail')
 
-const tglEmail = Env.get('MAIL_EMAIL')
-const tglName = Env.get('MAIL_NAME')
-const url = Env.get('APP_URL')
+const Kue = use('Kue')
+const Job = use('App/Jobs/NewUserMail')
 
 class UserController {
   async index () {
@@ -18,13 +15,8 @@ class UserController {
     const data = request.only(['name', 'email', 'password'])
     try {
       const user = await User.create(data)
-      await Mail.send(
-        ['emails.confirmation_account'],
-        { name: user.name, link: `${url}/confirm-account/${user.id}` },
-        message => {
-          message.to(user.email).from(tglEmail, tglName).subject('Confirmar conta')
-        }
-      )
+
+      Kue.dispatch(Job.key, { user }, { attempts: 3 })
 
       return user
     } catch (error) {
