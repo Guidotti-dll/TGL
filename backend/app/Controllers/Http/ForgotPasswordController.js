@@ -12,6 +12,10 @@ class ForgotPasswordController {
       const email = request.input('email')
       const user = await User.findByOrFail('email', email)
 
+      if (user && !user.is_confirmed) {
+        return response.status(401).send({ error: { message: 'Unconfirmed account, check your email' } })
+      }
+
       user.token = crypto.randomBytes(10).toString('hex')
       user.token_created_at = new Date()
       await user.save()
