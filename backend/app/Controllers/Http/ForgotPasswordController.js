@@ -1,14 +1,11 @@
 'use strict'
 
-const Env = use('Env')
 const moment = require('moment')
 const crypto = require('crypto')
 const User = use('App/Models/User')
-const Mail = use('Mail')
 
-const tglEmail = Env.get('MAIL_EMAIL')
-const tglName = Env.get('MAIL_NAME')
-
+const Kue = use('Kue')
+const Job = use('App/Jobs/ForgotPasswordMail')
 class ForgotPasswordController {
   async store ({ request, response }) {
     try {
@@ -19,13 +16,7 @@ class ForgotPasswordController {
       user.token_created_at = new Date()
       await user.save()
 
-      await Mail.send(
-        ['emails.forgot_password'],
-        { name: user.name, email, token: user.token, link: `${request.input('redirect_url')}?token=${user.token}` },
-        message => {
-          message.to(user.email).from(tglEmail, tglName).subject('Recuperação de senha')
-        }
-      )
+      Kue.dispatch(Job.key, { redirectUrl: request.input('redirect_url'), user, email }, { attempts: 3 })
     } catch (error) {
       return response
         .status(404)
