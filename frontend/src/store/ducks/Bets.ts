@@ -38,7 +38,7 @@ const reducer: Reducer<BetState> = (state = initialState, action) => {
         loading: false,
         success: true,
         error: '',
-        myBets: [...state.myBets, ...action.payload.bets],
+        // myBets: [...state.myBets, ...action.payload.bets],
       }
     case Types.SAVE_BETS__FAILURE:
       return {
@@ -69,7 +69,7 @@ const reducer: Reducer<BetState> = (state = initialState, action) => {
         loading: false,
         error: '',
         success: false,
-        actualPage: 0,
+        actualPage: 1,
       }
     case Types.RESET_SUCCESS:
       return { ...state, success: false }
@@ -88,12 +88,12 @@ export const saveBetsRequest = (bets: Game[]) => {
   }
 }
 
-export const saveBetsSuccess = (bets: Game[]) => {
+export const saveBetsSuccess = () => {
   return {
     type: Types.SAVE_BETS_SUCCESS,
-    payload: {
-      bets,
-    },
+    // payload: {
+    //   bets,
+    // },
   }
 }
 export const saveBetsFailure = (error: string) => {

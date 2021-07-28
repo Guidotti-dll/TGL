@@ -8,9 +8,9 @@ const Kue = use('Kue')
 const Job = use('App/Jobs/NewBetMail')
 
 class BetController {
-  async index ({ request, response, view }) {
+  async index ({ request, auth }) {
     const { page } = request.get()
-    const bets = await Bet.query().with('game').paginate(page)
+    const bets = await Bet.query().where('user_id', auth.user.id).with('game').paginate(page)
 
     return bets
   }

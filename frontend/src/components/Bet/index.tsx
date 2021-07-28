@@ -93,6 +93,7 @@ const Bet: React.FC<NewBetProps> = ({ types }) => {
     }
     if (selectedGame!['max-number'] === selectedNumbers.length) {
       const newBet: Game = {
+        game_id: selectedGame.id,
         type: selectedGame!.type,
         color: selectedGame!.color,
         price: selectedGame!.price,

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
 import { put, all, takeEvery, fork, call } from 'redux-saga/effects'
@@ -15,22 +16,30 @@ import {
 } from '../ducks/Bets'
 import { clearCart } from '../ducks/Cart'
 
-interface betRequest extends Game {
+interface betRequest {
+  game_id: number
+  numbers: number[]
+}
+interface getBetRequest extends Game {
   game: Type
-  // eslint-disable-next-line camelcase
   created_at: string
 }
 
 export function* handleSaveBets({
   payload,
 }: ReturnType<typeof saveBetsRequest>) {
-  try {
-    if (payload.bets.length === 0) {
-      throw new Error('Não há apostas')
+  const bets = payload.bets.map((bet: betRequest) => {
+    return {
+      game_id: bet.game_id,
+      numbers: bet.numbers,
     }
+  })
+
+  try {
+    const response: AxiosResponse = yield call(api.post, `/bets`, { bets })
 
     yield put(clearCart())
-    yield put(saveBetsSuccess(payload.bets))
+    yield put(saveBetsSuccess())
     toast.success('Suas apostas foram feitas com sucesso!')
   } catch (error) {
     yield put(saveBetsFailure(error.message))
@@ -46,7 +55,7 @@ export function* handleGetBets({ payload }: ReturnType<typeof getBetsRequest>) {
     console.log(+response.data.total)
 
     if (+response.data.total > payload.total) {
-      const bets = response.data.data.map((bet: betRequest) => {
+      const bets = response.data.data.map((bet: getBetRequest) => {
         return {
           type: bet.game.type,
           color: bet.game.color,
