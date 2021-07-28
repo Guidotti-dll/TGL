@@ -33,7 +33,7 @@ const ChangePasswordForm: React.FC = () => {
         password_confirmation: passwordConfirmation,
         token: token,
       })
-      toast.success('Senha alterada con sucesso!!')
+      toast.success('Senha alterada com sucesso!!')
       push('/')
     } catch (error) {
       toast.error(error.response.data.error.message)
