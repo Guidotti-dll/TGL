@@ -9,16 +9,15 @@ export const InputStyle = styled.View`
 `
 export const TextInput = styled.TextInput`
   padding: 0 26px 0 26px;
-  min-height: 80%;
-  max-height: 80%;
+  height: 100%;
   font-size: 15px;
   color: #9d9d9d;
   font-weight: bold;
   font-style: italic;
 `
 export const TextError = styled.Text`
-  font-size: 13px;
-  margin-bottom: 5px;
-  margin-left: 30px;
+  font-size: 12px;
+  margin-top: -20px;
+  margin-left: 26px;
   color: red;
 `
