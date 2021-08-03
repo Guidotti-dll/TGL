@@ -19,10 +19,10 @@ const AuthContainer: React.FC = ({ children }) => {
           <LogoLine />
         </Logo>
         {children}
+        <Footer>
+          <FooterText>Copyright 2020 Luby Software</FooterText>
+        </Footer>
       </ScrollView>
-      <Footer>
-        <FooterText>Copyright 2020 Luby Software</FooterText>
-      </Footer>
     </>
   )
 }
