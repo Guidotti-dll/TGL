@@ -2,10 +2,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { Button } from 'react-native'
-import * as yup from 'yup'
 
 import AuthContainer from '../../components/AuthContainer'
 import Input from '../../components/Input'
+import { AuthSchema } from '../../utils/schemas'
 import { Container, Form } from './styles'
 
 type LoginInfos = {
@@ -19,14 +19,7 @@ const SignIn = () => {
     control,
     formState: { errors },
   } = useForm<LoginInfos>({
-    resolver: yupResolver(
-      yup.object().shape({
-        email: yup
-          .string()
-          .required('Este campo é obrigatório')
-          .email('Insira um email valido'),
-      }),
-    ),
+    resolver: yupResolver(AuthSchema),
   })
 
   const onSubmit: SubmitHandler<LoginInfos> = data => {
@@ -57,7 +50,7 @@ const SignIn = () => {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                error={errors.email?.message}
+                error={errors.password?.message}
                 placeholder='Password'
               />
             )}
