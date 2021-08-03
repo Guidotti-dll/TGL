@@ -1,10 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
-import { Button, Text, TextInput } from 'react-native'
+import { Button } from 'react-native'
 import * as yup from 'yup'
 
 import AuthContainer from '../../components/AuthContainer'
+import Input from '../../components/Input'
 import { Container, Form } from './styles'
 
 type LoginInfos = {
@@ -13,11 +14,6 @@ type LoginInfos = {
 }
 
 const SignIn = () => {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<LoginInfos>()
   const {
     handleSubmit,
     control,
@@ -42,34 +38,34 @@ const SignIn = () => {
         <Form>
           <Controller
             control={control}
-            // rules={{
-            //   required: true,
-            // }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
+              <Input
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
+                error={errors.email?.message}
+                placeholder='Email'
               />
             )}
             name='email'
             defaultValue=''
           />
-          {errors.email && <Text>{errors.email.message}</Text>}
-          {/* <Input
-            text="Email"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            name="firstName"
-          /> */}
-          {/* <Input
-            placeholder='Password'
-            {...register('password')}
-            error={errors.password?.message}
-          /> */}
-          <Button title='Submit' onPress={handleSubmit(onSubmit)} />
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                error={errors.email?.message}
+                placeholder='Password'
+              />
+            )}
+            name='password'
+            defaultValue=''
+          />
         </Form>
+        <Button title='Submit' onPress={handleSubmit(onSubmit)} />
       </Container>
     </AuthContainer>
   )
