@@ -35,7 +35,6 @@ const Input = ({
           paddingRight: 65,
           color: '#9D9D9D',
           fontSize: 15,
-          // backgroundColor: 'red',
         }}
         labelStyle={{
           marginBottom: 17,
