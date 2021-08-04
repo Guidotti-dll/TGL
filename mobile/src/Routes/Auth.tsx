@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
+import ForgotPassword from '../Pages/ForgotPassword'
 import SignIn from '../Pages/SignIn'
 
 const AuthStack = createStackNavigator()
@@ -20,6 +21,11 @@ const AuthStackScreen: React.FC = () => (
       name='SignIn'
       component={SignIn}
       options={{ title: 'Sign In' }}
+    />
+    <AuthStack.Screen
+      name='ForgotPassword'
+      component={ForgotPassword}
+      options={{ title: 'Forgot Password' }}
     />
   </AuthStack.Navigator>
 )
