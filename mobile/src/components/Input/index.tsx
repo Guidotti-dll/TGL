@@ -32,9 +32,10 @@ const Input = ({
         inputStyle={{
           paddingBottom: 17,
           paddingLeft: 26,
-          paddingRight: 26,
+          paddingRight: 65,
           color: '#9D9D9D',
           fontSize: 15,
+          // backgroundColor: 'red',
         }}
         labelStyle={{
           marginBottom: 17,
@@ -42,9 +43,6 @@ const Input = ({
           color: '#9D9D9D',
           fontSize: 15,
           fontWeight: 'bold',
-          justifyContent: 'center',
-          alignItems: 'center',
-          textAlign: 'center',
         }}
         value={value}
         secureTextEntry={type === 'password' ? hidePassword : false}
@@ -59,9 +57,9 @@ const Input = ({
       {error && <TextError>{error}</TextError>}
       {type === 'password' && (
         <Feather
-          name={hidePassword ? 'eye' : 'eye-off'}
+          name='eye'
           size={24}
-          color='#C1C1C1'
+          color={!hidePassword ? colors.green : '#C1C1C1'}
           style={{
             position: 'absolute',
             top: 24,
