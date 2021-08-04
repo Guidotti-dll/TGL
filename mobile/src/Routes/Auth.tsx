@@ -3,6 +3,7 @@ import React from 'react'
 
 import ForgotPassword from '../Pages/ForgotPassword'
 import SignIn from '../Pages/SignIn'
+import SignUp from '../Pages/SignUp'
 
 const AuthStack = createStackNavigator()
 export type AuthStackParamList = {
@@ -26,6 +27,11 @@ const AuthStackScreen: React.FC = () => (
       name='ForgotPassword'
       component={ForgotPassword}
       options={{ title: 'Forgot Password' }}
+    />
+    <AuthStack.Screen
+      name='SignUp'
+      component={SignUp}
+      options={{ title: 'Sign Up' }}
     />
   </AuthStack.Navigator>
 )

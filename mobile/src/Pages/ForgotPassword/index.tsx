@@ -82,10 +82,7 @@ const ForgotPassword = ({ navigation }: Props) => {
           />
           <ButtonText>Back</ButtonText>
         </Button>
-        <Button
-          onPress={() => navigation.push('SignUp')}
-          style={{ marginTop: 65 }}
-        >
+        <Button onPress={() => navigation.goBack()} style={{ marginTop: 65 }}>
           <ButtonText>Sign Up</ButtonText>
           <AntDesign
             name='arrowright'
