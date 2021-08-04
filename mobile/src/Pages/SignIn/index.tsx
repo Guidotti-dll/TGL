@@ -1,19 +1,37 @@
+import { AntDesign } from '@expo/vector-icons'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
-import { Button } from 'react-native'
 
+import { AuthStackParamList } from '../../Routes/Auth'
 import AuthContainer from '../../components/AuthContainer'
 import Input from '../../components/Input'
+import { colors } from '../../constants/colors'
 import { AuthSchema } from '../../utils/schemas'
-import { Container, Form } from './styles'
+import {
+  Container,
+  Form,
+  Button,
+  ButtonText,
+  ForgotText,
+  Title,
+} from './styles'
 
 type LoginInfos = {
   email: string
   password: string
 }
+type SignScreenNavigationProp = StackNavigationProp<
+  AuthStackParamList,
+  'SignIn'
+>
 
-const SignIn = () => {
+type Props = {
+  navigation: SignScreenNavigationProp
+}
+
+const SignIn = ({ navigation }: Props) => {
   const {
     handleSubmit,
     control,
@@ -28,6 +46,7 @@ const SignIn = () => {
   return (
     <AuthContainer>
       <Container>
+        <Title>Authentication</Title>
         <Form>
           <Controller
             control={control}
@@ -57,8 +76,31 @@ const SignIn = () => {
             name='password'
             defaultValue=''
           />
+          <ForgotText onPress={() => navigation.push('ForgotPassword')}>
+            I forget my password
+          </ForgotText>
+          <Button onPress={handleSubmit(onSubmit)} style={{ marginBottom: 33 }}>
+            <ButtonText color={colors.green}>Log In</ButtonText>
+            <AntDesign
+              name='arrowright'
+              size={21}
+              color={colors.green}
+              style={{ marginLeft: 18 }}
+            />
+          </Button>
         </Form>
-        <Button title='Submit' onPress={handleSubmit(onSubmit)} />
+        <Button
+          onPress={() => navigation.push('SignUp')}
+          style={{ marginTop: 38 }}
+        >
+          <ButtonText>Sign Up</ButtonText>
+          <AntDesign
+            name='arrowright'
+            size={24}
+            color={colors.gray}
+            style={{ marginLeft: 17 }}
+          />
+        </Button>
       </Container>
     </AuthContainer>
   )

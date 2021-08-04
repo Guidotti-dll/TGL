@@ -7,7 +7,7 @@ export const ScrollView = styled.ScrollView`
 `
 export const Logo = styled.View`
   align-items: center;
-  margin: 75px 0 57px 0;
+  margin-top: 75px;
 `
 
 export const LogoText = styled.Text`
@@ -31,5 +31,6 @@ export const Footer = styled.View`
 
 export const FooterText = styled.Text`
   font-size: 15px;
+  margin-top: 128px;
   color: ${colors.gray};
 `

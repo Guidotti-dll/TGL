@@ -4,6 +4,11 @@ import React from 'react'
 import SignIn from '../Pages/SignIn'
 
 const AuthStack = createStackNavigator()
+export type AuthStackParamList = {
+  SignIn: undefined
+  SignUp: undefined
+  ForgotPassword: undefined
+}
 
 const AuthStackScreen: React.FC = () => (
   <AuthStack.Navigator
