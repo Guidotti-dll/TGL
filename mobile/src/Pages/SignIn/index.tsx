@@ -38,6 +38,7 @@ const SignIn = () => {
                 value={value}
                 error={errors.email?.message}
                 placeholder='Email'
+                type='email'
               />
             )}
             name='email'
@@ -47,6 +48,7 @@ const SignIn = () => {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
+                type='password'
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
