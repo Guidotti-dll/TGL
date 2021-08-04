@@ -28,7 +28,7 @@ const Input = ({
         label={placeholder}
         iconClass={FontAwesomeIcon}
         iconName=''
-        iconColor={!focus ? '#dddddd' : colors.green}
+        iconColor={error ? 'red' : !focus ? '#dddddd' : colors.green}
         inputStyle={{
           paddingBottom: 17,
           paddingLeft: 26,
