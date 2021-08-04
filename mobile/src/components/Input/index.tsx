@@ -1,4 +1,3 @@
-import { Feather } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 
@@ -55,7 +54,7 @@ const Input = ({
       />
       {error && <TextError>{error}</TextError>}
       {type === 'password' && (
-        <Feather
+        <FontAwesomeIcon
           name='eye'
           size={24}
           color={!hidePassword ? colors.green : '#C1C1C1'}
