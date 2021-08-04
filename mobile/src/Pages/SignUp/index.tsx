@@ -8,6 +8,7 @@ import { AuthStackParamList } from '../../Routes/Auth'
 import AuthContainer from '../../components/AuthContainer'
 import Input from '../../components/Input'
 import { colors } from '../../constants/colors'
+import api from '../../services/api'
 import { SignUpSchema } from '../../utils/schemas'
 import { Container, Button, ButtonText, Title } from '../SignIn/styles'
 import { Form } from './styles'
@@ -36,8 +37,27 @@ const SignUp = ({ navigation }: Props) => {
     resolver: yupResolver(SignUpSchema),
   })
 
-  const onSubmit: SubmitHandler<RegistrationInfos> = data => {
-    alert(JSON.stringify(data))
+  const onSubmit: SubmitHandler<RegistrationInfos> = async ({
+    name,
+    email,
+    password,
+    passwordConfirmation,
+  }) => {
+    try {
+      await api.post('/users', {
+        email,
+        name,
+        password,
+        password_confirmation: passwordConfirmation,
+      })
+
+      alert('Conta criada com sucesso!! Confirme sua conta no seu email')
+      navigation.goBack()
+    } catch (error) {
+      error.response.data.forEach((error: { message: string }) => {
+        alert(error.message)
+      })
+    }
   }
   return (
     <AuthContainer>
