@@ -10,7 +10,6 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
     const { data } = yield call(api.post, '/sessions', payload)
     api.defaults.headers.authorization = `Bearer ${data.token.token}`
-    yield sessionStorage.setItem('token', data.token.token)
     const user: User = {
       id: data.user.id,
       name: data.user.name,

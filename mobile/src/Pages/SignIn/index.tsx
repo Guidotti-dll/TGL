@@ -1,13 +1,16 @@
 import { AntDesign } from '@expo/vector-icons'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { AuthStackParamList } from '../../Routes/Auth'
 import AuthContainer from '../../components/AuthContainer'
 import Input from '../../components/Input'
 import { colors } from '../../constants/colors'
+import { AppStore } from '../../store'
+import { AuthState, loginRequest } from '../../store/ducks/Auth'
 import { AuthSchema } from '../../utils/schemas'
 import {
   Container,
@@ -32,6 +35,11 @@ type Props = {
 }
 
 const SignIn = ({ navigation }: Props) => {
+  const { error, isLogged } = useSelector<AppStore, AuthState>(
+    state => state.Auth,
+  )
+  const dispatch = useDispatch()
+
   const {
     handleSubmit,
     control,
@@ -41,8 +49,14 @@ const SignIn = ({ navigation }: Props) => {
   })
 
   const onSubmit: SubmitHandler<LoginInfos> = data => {
-    alert(JSON.stringify(data))
+    dispatch(loginRequest(data.email, data.password))
   }
+
+  useEffect(() => {
+    if (error) {
+      alert(error)
+    }
+  }, [isLogged, error])
   return (
     <AuthContainer>
       <Container>
