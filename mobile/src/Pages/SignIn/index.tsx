@@ -31,9 +31,8 @@ const SignIn = () => {
         <Form>
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { onChange, value } }) => (
               <Input
-                onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
                 error={errors.email?.message}
@@ -46,10 +45,9 @@ const SignIn = () => {
           />
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { onChange, value } }) => (
               <Input
                 type='password'
-                onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
                 error={errors.password?.message}
