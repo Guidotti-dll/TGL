@@ -29,3 +29,9 @@ export const LogoLine = styled(LogoLineBase)`
   height: 6px;
   margin-top: 3px;
 `
+
+export const IconsContainer = styled.View`
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+`

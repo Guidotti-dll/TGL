@@ -4,8 +4,9 @@ import React from 'react'
 import RecentGames from '../Pages/RecentGames'
 
 const AppTab = createBottomTabNavigator()
-export type AuthStackParamList = {
-  RecentGames: undefined
+export type AppStackParamList = {
+  Home: undefined
+  NewBet: undefined
 }
 
 const AppTabScreen: React.FC = () => (
@@ -14,7 +15,9 @@ const AppTabScreen: React.FC = () => (
       headerShown: false,
     }}
   >
-    <AppTab.Screen name='RecentGames' component={RecentGames} />
+    <AppTab.Screen name='Home' component={RecentGames} />
+    <AppTab.Screen name='NewBet' component={RecentGames} />
+    <AppTab.Screen name='Account' component={RecentGames} />
   </AppTab.Navigator>
 )
 
