@@ -13,6 +13,7 @@ export const BottomTab = styled.View`
   height: 71px;
   align-items: flex-end;
   justify-content: space-between;
+  box-shadow: 0 3px 25px #00000017;
   padding: 0 43px 13px 52px;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
