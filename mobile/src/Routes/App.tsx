@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
 
 import RecentGames from '../Pages/RecentGames'
+import MyTabBar from '../components/TabNavigator'
 
 const AppTab = createBottomTabNavigator()
 export type AppStackParamList = {
@@ -14,6 +15,7 @@ const AppTabScreen: React.FC = () => (
     screenOptions={{
       headerShown: false,
     }}
+    tabBar={props => <MyTabBar {...props} />}
   >
     <AppTab.Screen name='Home' component={RecentGames} />
     <AppTab.Screen name='NewBet' component={RecentGames} />
