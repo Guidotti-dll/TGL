@@ -11,7 +11,7 @@ const Routes: React.FC = () => {
   const { isLogged } = useSelector<AppStore, AuthState>(state => state.Auth)
   return (
     <NavigationContainer>
-      {!isLogged ? <AppTabScreen /> : <AuthStackScreen />}
+      {isLogged ? <AppTabScreen /> : <AuthStackScreen />}
     </NavigationContainer>
   )
 }
