@@ -1,13 +1,8 @@
-import { FlatListProps, TextProps, TouchableOpacityProps } from 'react-native'
+import { TextProps, TouchableOpacityProps } from 'react-native'
 import styled from 'styled-components/native'
 
-import { Type } from '../../Interfaces/game'
 import { colors } from '../../constants/colors'
 
-export const FilterContainer = styled.FlatList<FlatListProps<Type>>`
-  flex-direction: row;
-  padding-bottom: 4px;
-`
 interface ButtonProps extends TouchableOpacityProps {
   color?: string
   isSelected?: boolean

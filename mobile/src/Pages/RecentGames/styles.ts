@@ -13,6 +13,7 @@ export const FilterContainer = styled.View`
   opacity: 95;
   width: 100%;
   min-height: 136px;
+  padding-bottom: 2px;
 `
 
 export const Title = styled.Text`
