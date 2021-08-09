@@ -79,7 +79,6 @@ const RecentGames: React.FC = () => {
                 <Details>
                   <Numbers>{item.numbers}</Numbers>
                   <DetailsText>
-                    {item.id} ---------
                     {formatDate(item.date)} - ({formatMoney(item.price)})
                   </DetailsText>
                   <TypeText color={item.color}>{item.type}</TypeText>
