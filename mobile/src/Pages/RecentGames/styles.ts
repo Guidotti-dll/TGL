@@ -13,12 +13,15 @@ export const Container = styled.View`
   flex: 1;
 `
 export const FilterContainer = styled.View`
-  background: #f7f7f7;
+  background: rgba(247, 247, 247, 0.95);
   padding: 0 20px;
-  opacity: 95;
+  opacity: 10;
   width: 100%;
   min-height: 136px;
   padding-bottom: 2px;
+  position: absolute;
+  top: 0;
+  z-index: 1;
 `
 
 export const Title = styled.Text`
@@ -39,7 +42,6 @@ export const SubTitle = styled.Text`
 export const BetContainer = styled.View`
   height: 79px;
   width: 100%;
-  margin-top: 25px;
   padding: 0 20px 0 20px;
   flex-direction: row;
 `

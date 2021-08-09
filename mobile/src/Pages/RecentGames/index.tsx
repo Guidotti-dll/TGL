@@ -73,8 +73,8 @@ const RecentGames: React.FC = () => {
             data={filteredGames}
             keyExtractor={item => `${item.id}`}
             onEndReached={handleChangePage}
-            renderItem={({ item }) => (
-              <BetContainer>
+            renderItem={({ item, index }) => (
+              <BetContainer style={{marginTop: index === 0 ? 143 : 25}}>
                 <Line color={item.color} />
                 <Details>
                   <Numbers>{item.numbers}</Numbers>
