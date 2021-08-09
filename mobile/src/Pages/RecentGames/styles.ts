@@ -71,3 +71,20 @@ export const DetailsText = styled(Numbers)`
 export const TypeText = styled.Text<BetsProps>`
   color: ${({ color }) => color || colors.gray};
 `
+
+export const GamesEmpty = styled.View`
+  margin-top: 10px;
+  padding: 0 20px;
+`
+export const GamesEmptyTitle = styled.Text`
+  font-size: 15px;
+  font-style: italic;
+  color: ${colors.gray};
+  font-weight: bold;
+`
+export const GamesEmptySubTitle = styled.Text`
+  font-size: 12px;
+  font-style: italic;
+  color: ${colors.gray};
+  margin-top: 5px;
+`
