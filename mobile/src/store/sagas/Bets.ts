@@ -21,6 +21,7 @@ interface betRequest {
   numbers: number[]
 }
 interface getBetRequest extends Game {
+  id: number
   game: Type
   created_at: string
 }
@@ -52,11 +53,11 @@ export function* handleGetBets({ payload }: ReturnType<typeof getBetsRequest>) {
       api.get,
       `/bets?page=${payload.page}`,
     )
-    console.log(+response.data.total)
 
     if (+response.data.total > payload.total) {
       const bets = response.data.data.map((bet: getBetRequest) => {
         return {
+          id: bet.id,
           type: bet.game.type,
           color: bet.game.color,
           date: bet.created_at,

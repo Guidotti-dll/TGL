@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 export interface Game {
+  id?: number
   game_id: number
   type: string
   color: string
