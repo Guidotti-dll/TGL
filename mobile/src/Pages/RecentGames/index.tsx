@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
+/* eslint-disable prettier/prettier */
+import React, { useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { Game } from '../../Interfaces/game'
 import Filter from '../../components/Filter'
 import Header from '../../components/Header'
 import { AppStore } from '../../store'
@@ -27,7 +29,25 @@ const RecentGames: React.FC = () => {
   const { myBets, actualPage } = useSelector<AppStore, BetState>(
     state => state.Bets,
   )
+  const [filters, setFilters] = useState<string[]>([])
+  const [filteredGames, setFilteredGames] = useState(myBets)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const games: Game[] = []
+    if (filters.length > 0) {
+      for (let index = 0; index < filters.length; index++) {
+        games.push(...myBets.filter(game => game.type === filters[index]))
+      }
+
+      setFilteredGames(
+        games|| myBets
+      )
+    } else {
+      setFilteredGames(myBets)
+    }
+  }, [filters, myBets])
+
   useEffect(() => {
     dispatch(resetSuccess())
     if (myBets.length === 0) {
@@ -46,11 +66,11 @@ const RecentGames: React.FC = () => {
         <FilterContainer>
           <Title>Recent games</Title>
           <SubTitle>Filters</SubTitle>
-          <Filter />
+          <Filter setFilter={(filters: string[]) => setFilters(filters)} />
         </FilterContainer>
-        {myBets.length > 0 && (
+        {filteredGames.length > 0 && (
           <FlatList
-            data={myBets}
+            data={filteredGames}
             keyExtractor={item => `${item.id}`}
             onEndReached={handleChangePage}
             renderItem={({ item }) => (
@@ -68,7 +88,7 @@ const RecentGames: React.FC = () => {
             )}
           />
         )}
-        {myBets.length === 0 && (
+        {filteredGames.length === 0 && filters.length === 0 && (
           <GamesEmpty>
             <GamesEmptyTitle>Você não possui jogos cadastrados</GamesEmptyTitle>
             <GamesEmptySubTitle>
@@ -76,11 +96,13 @@ const RecentGames: React.FC = () => {
             </GamesEmptySubTitle>
           </GamesEmpty>
         )}
-        {/* {filter && filteredGames.length === 0 && myBets.length > 0 && (
-        <GamesEmpty>
-          <GamesEmptySubTitle>Você não possui jogos cadastrados deste tipo </GamesEmptySubTitle>
+        {filters.length > 0 && filteredGames.length === 0 && (
+          <GamesEmpty>
+            <GamesEmptySubTitle>
+              Você não possui jogos cadastrados deste(s) tipo(s){' '}
+            </GamesEmptySubTitle>
           </GamesEmpty>
-      )} */}
+        )}
       </Container>
     </View>
   )

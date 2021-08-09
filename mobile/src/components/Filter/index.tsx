@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
 import { Type } from '../../Interfaces/game'
 import { useTypes } from '../../hooks/useTypes'
 import { GameButton, GameButtonText } from './styles'
 
-const Filter: React.FC = () => {
+interface Props {
+  setFilter: (filters: string[]) => void
+}
+
+const Filter: React.FC<Props> = ({ setFilter }: Props) => {
   const { types } = useTypes()
   const [selectedFilter, setSelectedFilter] = useState<any>({})
 
@@ -20,6 +24,9 @@ const Filter: React.FC = () => {
     setSelectedFilter({ ...tempSelectedFilter })
   }
 
+  useEffect(() => {
+    setFilter(Object.keys(selectedFilter))
+  }, [selectedFilter])
   return (
     <FlatList
       horizontal
