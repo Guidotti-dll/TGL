@@ -1,7 +1,9 @@
+import { Octicons } from '@expo/vector-icons'
 import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 
 import { Type } from '../../Interfaces/game'
+import { colors } from '../../constants/colors'
 import { useTypes } from '../../hooks/useTypes'
 import { GameButton, GameButtonText } from './styles'
 
@@ -46,6 +48,14 @@ const Filter: React.FC<Props> = ({ setFilter }: Props) => {
           >
             {item.type}
           </GameButtonText>
+          {!!selectedFilter?.[item.type] && (
+            <Octicons
+              name='x'
+              size={11}
+              color={colors.white}
+              style={{ position: 'absolute', right: 6, top: 0 }}
+            />
+          )}
         </GameButton>
       )}
     />
