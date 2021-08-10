@@ -1,5 +1,9 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import {
+  DrawerActions,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
@@ -19,12 +23,12 @@ import {
 type HeaderProp = StackNavigationProp<AppStackParamList, 'NewBet'>
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch()
-  const { navigate } = useNavigation<HeaderProp>()
+  const dispatchRedux = useDispatch()
+  const { navigate, dispatch } = useNavigation<HeaderProp>()
   const { name } = useRoute()
 
   const handleLogOut = () => {
-    dispatch(logout())
+    dispatchRedux(logout())
   }
 
   return (
@@ -43,6 +47,7 @@ const Header: React.FC = () => {
             size={26}
             color={colors.green}
             style={{ marginRight: 31 }}
+            onPress={() => dispatch(DrawerActions.openDrawer())}
           />
         )}
 
