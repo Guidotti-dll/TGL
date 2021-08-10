@@ -75,7 +75,7 @@ export const TypeText = styled.Text<BetsProps>`
 `
 
 export const GamesEmpty = styled.View`
-  margin-top: 10px;
+  margin-top: 143px;
   padding: 0 20px;
 `
 export const GamesEmptyTitle = styled.Text`
