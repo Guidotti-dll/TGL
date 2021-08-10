@@ -46,7 +46,7 @@ const MyTabBar: React.FC<BottomTabBarProps> = ({
           }
         }
 
-        if (label === 'NewBet') {
+        if (label === 'NewBetScreen') {
           return (
             <NewBetButtonContainer key={route.key}>
               <NewBetButton
@@ -58,7 +58,7 @@ const MyTabBar: React.FC<BottomTabBarProps> = ({
               >
                 <MaterialCommunityIcons
                   name='poker-chip'
-                  size={69}
+                  size={59}
                   color={colors.white}
                 />
               </NewBetButton>
