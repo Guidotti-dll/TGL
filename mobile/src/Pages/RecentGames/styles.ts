@@ -9,13 +9,13 @@ interface BetsProps {
 export const Container = styled.View`
   width: 100%;
   background: #f7f7f7;
+  background: red;
   position: relative;
   flex: 1;
 `
 export const FilterContainer = styled.View`
   background: rgba(247, 247, 247, 0.95);
   padding: 0 20px;
-  opacity: 10;
   width: 100%;
   min-height: 136px;
   padding-bottom: 2px;

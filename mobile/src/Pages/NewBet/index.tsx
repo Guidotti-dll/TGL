@@ -123,7 +123,7 @@ const NewBet: React.FC = () => {
   }, [filter])
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Header />
       <Container>
         <FilterContainer>
@@ -221,8 +221,8 @@ const NewBet: React.FC = () => {
             renderItem={({ item, index }) => (
               <NumberButton
                 style={{
-                  marginTop: index < 5 ? 280 : 10,
-                  marginBottom: index > filter?.range - 5 ? 175 : 0,
+                  marginTop: index < 5 ? 300 : 10,
+                  marginBottom: index > filter?.range - 5 ? 15 : 0,
                 }}
                 onPress={() => addNumberHandler(item)}
                 color={filter?.color}
