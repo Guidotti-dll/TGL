@@ -1,12 +1,17 @@
+import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons'
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { Type } from '../../Interfaces/game'
 import { GameButton, GameButtonText } from '../../components/Filter/styles'
 import Header from '../../components/Header'
+import { colors } from '../../constants/colors'
 import { useTypes } from '../../hooks/useTypes'
 import { SubTitle, Title } from '../RecentGames/styles'
 import {
+  ActionButton,
+  Actions,
+  ActionText,
   Container,
   DescriptionContainer,
   DescriptionText,
@@ -95,6 +100,52 @@ const NewBet: React.FC = () => {
               </DescriptionTitle>
               <DescriptionText>{filter?.description}</DescriptionText>
             </DescriptionContainer>
+          )}
+          {filter && selectedNumbers.length > 0 && (
+            <>
+              <FlatList
+                style={{
+                  width: '100%',
+                }}
+                data={selectedNumbers}
+                keyExtractor={number => String(number)}
+                horizontal
+                showsHorizontalScrollIndicator
+                renderItem={({ item }) => (
+                  <NumberButton
+                    size={40}
+                    onPress={() => addNumberHandler(item)}
+                    color={filter?.color}
+                    selected
+                  >
+                    <NumberText size={13}>{item}</NumberText>
+                    <Octicons
+                      name='x'
+                      size={11}
+                      color={colors.white}
+                      style={{ position: 'absolute', right: 6, top: 5 }}
+                    />
+                  </NumberButton>
+                )}
+              />
+              <Actions>
+                <ActionButton>
+                  <ActionText>Complete game</ActionText>
+                </ActionButton>
+                <ActionButton>
+                  <ActionText>Clear game</ActionText>
+                </ActionButton>
+                <ActionButton invert>
+                  <MaterialCommunityIcons
+                    name='cart-outline'
+                    size={18}
+                    color={colors.white}
+                    style={{ marginRight: 10 }}
+                  />
+                  <ActionText invert>Add to cart</ActionText>
+                </ActionButton>
+              </Actions>
+            </>
           )}
           <Line />
         </FilterContainer>
