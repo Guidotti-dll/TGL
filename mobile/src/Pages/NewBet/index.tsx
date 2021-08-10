@@ -1,12 +1,14 @@
 import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons'
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
+import { useDispatch } from 'react-redux'
 
-import { Type } from '../../Interfaces/game'
+import { Game, Type } from '../../Interfaces/game'
 import { GameButton, GameButtonText } from '../../components/Filter/styles'
 import Header from '../../components/Header'
 import { colors } from '../../constants/colors'
 import { useTypes } from '../../hooks/useTypes'
+import { addBet } from '../../store/ducks/Cart'
 import { SubTitle, Title } from '../RecentGames/styles'
 import {
   ActionButton,
@@ -23,6 +25,7 @@ import {
 } from './style'
 
 const NewBet: React.FC = () => {
+  const dispatch = useDispatch()
   const { types } = useTypes()
   const [filter, setFilter] = useState<Type>()
   const [numbers, setNumbers] = useState<number[]>([])
@@ -48,6 +51,62 @@ const NewBet: React.FC = () => {
       if (filter && filter?.['max-number'] > selectedNumbers.length) {
         setSelectedNumbers(prevState => [...prevState, number])
       }
+    }
+  }
+
+  const getRandomIntInclusive = (min: number, max: number) => {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+
+  const clearGameHandler = () => {
+    setSelectedNumbers([])
+  }
+
+  const completeGameHandler = () => {
+    let tempArray = selectedNumbers
+    if (filter?.['max-number'] === tempArray.length) {
+      tempArray = []
+    }
+    if (!filter) {
+      alert('Selecione um jogo antes para completa-lo')
+      return
+    }
+    while (filter?.['max-number'] > tempArray.length) {
+      const selectedNumber = getRandomIntInclusive(0, filter?.range)
+      const hasInArray = tempArray.some(item => {
+        return item === selectedNumber
+      })
+      if (!hasInArray && selectedNumber !== 0) {
+        tempArray.push(selectedNumber)
+      }
+    }
+    setSelectedNumbers([...tempArray])
+  }
+
+  const addToCartHandler = () => {
+    if (!filter) {
+      alert('Selecione um jogo antes para adicionar-lo ao carrinho')
+      return
+    }
+    if (filter!['max-number'] === selectedNumbers.length) {
+      const newBet: Game = {
+        game_id: filter.id,
+        type: filter!.type,
+        color: filter!.color,
+        price: filter!.price,
+        date: new Date().toISOString(),
+        numbers: selectedNumbers.sort((a, b) => a - b),
+      }
+      dispatch(addBet(newBet))
+      clearGameHandler()
+    } else {
+      alert(
+        `Escolha ${selectedNumbers.length === 0 ? '' : 'mais'} ${
+          filter!['max-number'] - selectedNumbers.length
+        } números antes para adicionar o jogo ao carrilho`,
+      )
     }
   }
 
@@ -129,13 +188,13 @@ const NewBet: React.FC = () => {
                 )}
               />
               <Actions>
-                <ActionButton>
+                <ActionButton onPress={completeGameHandler}>
                   <ActionText>Complete game</ActionText>
                 </ActionButton>
-                <ActionButton>
+                <ActionButton onPress={clearGameHandler}>
                   <ActionText>Clear game</ActionText>
                 </ActionButton>
-                <ActionButton invert>
+                <ActionButton invert onPress={addToCartHandler}>
                   <MaterialCommunityIcons
                     name='cart-outline'
                     size={18}
