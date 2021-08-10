@@ -9,7 +9,6 @@ interface BetsProps {
 export const Container = styled.View`
   width: 100%;
   background: #f7f7f7;
-  background: red;
   position: relative;
   flex: 1;
 `
