@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 import { Type } from '../Interfaces/game'
 import api from '../services/api'
-// import { toast } from 'react-toastify'
 
 export const useTypes = () => {
   const [types, setTypes] = useState<Type[]>([])
