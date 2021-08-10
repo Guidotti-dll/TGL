@@ -159,8 +159,12 @@ const NewBet: React.FC = () => {
             keyExtractor={number => String(number)}
             numColumns={5}
             showsVerticalScrollIndicator
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <NumberButton
+                style={{
+                  marginTop: index < 5 ? 280 : 10,
+                  marginBottom: index > filter?.range - 5 ? 175 : 0,
+                }}
                 onPress={() => addNumberHandler(item)}
                 color={filter?.color}
                 selected={isInArray(item)}

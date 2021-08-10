@@ -22,6 +22,9 @@ export const FilterContainer = styled.View`
   padding: 0 20px;
   width: 100%;
   align-items: center;
+  position: absolute;
+  top: 0;
+  z-index: 1;
 `
 export const DescriptionContainer = styled.View`
   width: 100%;
