@@ -9,12 +9,15 @@ const Drawer = createDrawerNavigator()
 const NewBetScreen = () => {
   return (
     <Drawer.Navigator
-      defaultStatus='open'
       screenOptions={{
         headerShown: false,
         swipeEnabled: false,
         drawerPosition: 'right',
         overlayColor: 'rgba(255, 255, 255, 0.8)',
+        drawerStyle: {
+          backgroundColor: '#FFFFFF',
+          width: 265,
+        },
       }}
       drawerContent={props => <Cart {...props} />}
     >
