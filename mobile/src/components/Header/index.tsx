@@ -20,7 +20,7 @@ import {
   LogoText,
 } from './styles'
 
-type HeaderProp = StackNavigationProp<AppStackParamList, 'NewBet'>
+export type HeaderProp = StackNavigationProp<AppStackParamList, 'NewBet'>
 
 const Header: React.FC = () => {
   const dispatchRedux = useDispatch()

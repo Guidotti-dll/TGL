@@ -1,11 +1,12 @@
 import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 import { Game, Type } from '../../Interfaces/game'
 import { GameButton, GameButtonText } from '../../components/Filter/styles'
-import Header from '../../components/Header'
+import Header, { HeaderProp } from '../../components/Header'
 import { colors } from '../../constants/colors'
 import { useTypes } from '../../hooks/useTypes'
 import { addBet } from '../../store/ducks/Cart'
@@ -25,7 +26,8 @@ import {
 } from './style'
 
 const NewBet: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatchRedux = useDispatch()
+  const { dispatch } = useNavigation<HeaderProp>()
   const { types } = useTypes()
   const [filter, setFilter] = useState<Type>()
   const [numbers, setNumbers] = useState<number[]>([])
@@ -99,8 +101,9 @@ const NewBet: React.FC = () => {
         date: new Date().toISOString(),
         numbers: selectedNumbers.sort((a, b) => a - b),
       }
-      dispatch(addBet(newBet))
+      dispatchRedux(addBet(newBet))
       clearGameHandler()
+      dispatch(DrawerActions.openDrawer())
     } else {
       alert(
         `Escolha ${selectedNumbers.length === 0 ? '' : 'mais'} ${

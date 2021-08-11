@@ -5,14 +5,16 @@ import {
   AntDesign,
 } from '@expo/vector-icons'
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { colors } from '../../constants/colors'
+import { useTypes } from '../../hooks/useTypes'
 import { AppStore } from '../../store'
-import { CartState } from '../../store/ducks/Cart'
+import { BetState, saveBetsRequest } from '../../store/ducks/Bets'
+import { CartState, removeBet } from '../../store/ducks/Cart'
 import { formatDate, formatMoney } from '../../utils/formatValue'
 import {
   BetCard,
@@ -33,6 +35,47 @@ const Cart = ({ navigation }: DrawerContentComponentProps) => {
   const { totalBetValue, bets } = useSelector<AppStore, CartState>(
     state => state.Cart,
   )
+  const { error, success } = useSelector<AppStore, BetState>(
+    state => state.Bets,
+  )
+  const { types } = useTypes()
+  const dispatch = useDispatch()
+
+  const deleteBetHandler = (index: number) => {
+    dispatch(removeBet(index))
+  }
+
+  const saveBetHandler = () => {
+    let minValue = 0
+    bets.forEach(element => {
+      const tempType = types.find(type => type.type === element.type)
+      if (tempType!['min-cart-value'] > minValue) {
+        minValue = tempType!['min-cart-value']
+      }
+    })
+    if (minValue > totalBetValue) {
+      alert(`O valor minimo deve ser de ${formatMoney(minValue)}`)
+      return
+    }
+    dispatch(saveBetsRequest(bets))
+  }
+
+  useEffect(() => {
+    if (error) {
+      alert(error)
+    }
+    if (success) {
+      navigation.navigate('Home')
+    }
+  }, [error, success])
+
+  useEffect(() => {
+    if (bets.length !== 0) {
+      alert(
+        'Quando você saiu esqueceu de salvar suas apostas, então as mantivemos para você',
+      )
+    }
+  }, [])
 
   return (
     <Container>
@@ -55,9 +98,10 @@ const Cart = ({ navigation }: DrawerContentComponentProps) => {
         </Header>
         {bets.length > 0 && (
           <FlatList
+            style={{ marginTop: 25, marginBottom: 10 }}
             data={bets}
-            keyExtractor={item => `${item.id}`}
-            renderItem={({ item }) => (
+            keyExtractor={(item, index) => `${index}`}
+            renderItem={({ item, index }) => (
               <BetCard>
                 <Line color={item.color} />
                 <Details>
@@ -74,7 +118,7 @@ const Cart = ({ navigation }: DrawerContentComponentProps) => {
                       name='trash-2'
                       size={12}
                       color={colors.gray}
-                      onPress={() => console.log(item)}
+                      onPress={() => deleteBetHandler(index)}
                     />
                   </LineView>
                   <BoldText size={16} color={item.color}>
@@ -84,6 +128,11 @@ const Cart = ({ navigation }: DrawerContentComponentProps) => {
               </BetCard>
             )}
           />
+        )}
+        {totalBetValue === 0 && (
+          <BoldText style={{ marginTop: 12 }} size={17} color={colors.gray}>
+            Cart Empty
+          </BoldText>
         )}
         {totalBetValue > 0 && (
           <TotalContainer>
@@ -101,22 +150,24 @@ const Cart = ({ navigation }: DrawerContentComponentProps) => {
           </TotalContainer>
         )}
       </Content>
-      <SaveContainer>
-        <TouchableOpacity
-          style={{ flexDirection: 'row', alignItems: 'center' }}
-          onPress={() => console.log('save')}
-        >
-          <BoldText size={30} color={colors.green}>
-            Save
-          </BoldText>
-          <AntDesign
-            name='arrowright'
-            size={24}
-            color={colors.green}
-            style={{ marginLeft: 15 }}
-          />
-        </TouchableOpacity>
-      </SaveContainer>
+      {totalBetValue > 0 && (
+        <SaveContainer>
+          <TouchableOpacity
+            style={{ flexDirection: 'row', alignItems: 'center' }}
+            onPress={saveBetHandler}
+          >
+            <BoldText size={30} color={colors.green}>
+              Save
+            </BoldText>
+            <AntDesign
+              name='arrowright'
+              size={24}
+              color={colors.green}
+              style={{ marginLeft: 15 }}
+            />
+          </TouchableOpacity>
+        </SaveContainer>
+      )}
     </Container>
   )
 }
