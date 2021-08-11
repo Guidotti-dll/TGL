@@ -33,6 +33,7 @@ const RecentGames: React.FC = () => {
   const [filteredGames, setFilteredGames] = useState(myBets)
   const dispatch = useDispatch()
 
+  // console.log(myBets)
   useEffect(() => {
     const games: Game[] = []
     if (filters.length > 0) {

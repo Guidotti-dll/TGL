@@ -13,6 +13,7 @@ export type AppStackParamList = {
 
 const AppTabScreen: React.FC = () => (
   <AppTab.Navigator
+    initialRouteName='Home'
     screenOptions={{
       headerShown: false,
     }}

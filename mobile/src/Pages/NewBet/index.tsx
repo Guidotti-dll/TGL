@@ -108,7 +108,7 @@ const NewBet: React.FC = () => {
       alert(
         `Escolha ${selectedNumbers.length === 0 ? '' : 'mais'} ${
           filter!['max-number'] - selectedNumbers.length
-        } números antes para adicionar o jogo ao carrilho`,
+        } números antes para adicionar o jogo ao carrinho`,
       )
     }
   }
