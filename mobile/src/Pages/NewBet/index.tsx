@@ -33,10 +33,6 @@ const NewBet: React.FC = () => {
   const [numbers, setNumbers] = useState<number[]>([])
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([])
 
-  const handleChangeFilter = (type: Type) => {
-    setFilter(prevState => (prevState === type ? undefined : type))
-  }
-
   const isInArray = useCallback(
     (number: number) => {
       return selectedNumbers?.some(numberInArray => numberInArray === number)
@@ -111,6 +107,11 @@ const NewBet: React.FC = () => {
         } números antes para adicionar o jogo ao carrinho`,
       )
     }
+  }
+
+  const handleChangeFilter = (type: Type) => {
+    clearGameHandler()
+    setFilter(prevState => (prevState === type ? undefined : type))
   }
 
   useEffect(() => {
