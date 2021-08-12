@@ -65,6 +65,7 @@ const Cart = ({ navigation }: DrawerContentComponentProps) => {
       alert(error)
     }
     if (success) {
+      navigation?.closeDrawer()
       navigation.navigate('Home')
     }
   }, [error, success])

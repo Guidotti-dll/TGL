@@ -2,13 +2,15 @@ import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Game, Type } from '../../Interfaces/game'
 import { GameButton, GameButtonText } from '../../components/Filter/styles'
 import Header, { HeaderProp } from '../../components/Header'
 import { colors } from '../../constants/colors'
 import { useTypes } from '../../hooks/useTypes'
+import { AppStore } from '../../store'
+import { BetState } from '../../store/ducks/Bets'
 import { addBet } from '../../store/ducks/Cart'
 import { SubTitle, Title } from '../RecentGames/styles'
 import {
@@ -26,6 +28,7 @@ import {
 } from './style'
 
 const NewBet: React.FC = () => {
+  const { success } = useSelector<AppStore, BetState>(state => state.Bets)
   const dispatchRedux = useDispatch()
   const { dispatch } = useNavigation<HeaderProp>()
   const { types } = useTypes()
@@ -125,6 +128,12 @@ const NewBet: React.FC = () => {
       setNumbers([])
     }
   }, [filter])
+
+  useEffect(() => {
+    if (success) {
+      setFilter(undefined)
+    }
+  }, [success])
 
   return (
     <View style={{ flex: 1 }}>
