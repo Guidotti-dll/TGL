@@ -53,7 +53,7 @@ const RecentGames: React.FC = () => {
   }
 
   useEffect(() => {
-    if (myBets.length === 0) {
+    if(myBets.length === 0){
       handleChangePage()
     }
   }, [])
@@ -76,6 +76,7 @@ const RecentGames: React.FC = () => {
             data={filteredGames}
             keyExtractor={item => `${item.id}`}
             onEndReached={handleChangePage}
+            onEndReachedThreshold={0.1}
             renderItem={({ item, index }) => (
               <BetContainer style={{marginTop: index === 0 ? 143 : 25}}>
                 <Line color={item.color} />
