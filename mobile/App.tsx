@@ -3,12 +3,10 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import FlashMessage from 'react-native-flash-message'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-import { Provider, useSelector } from 'react-redux'
+import { Provider } from 'react-redux'
 
 import Routes from './src/Routes'
-import Loading from './src/components/Loading'
-import store, { AppStore } from './src/store'
-import { AuthState } from './src/store/ducks/Auth'
+import store from './src/store'
 
 const styles = StyleSheet.create({
   container: {
