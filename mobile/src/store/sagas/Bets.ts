@@ -37,7 +37,7 @@ export function* handleSaveBets({
   })
 
   try {
-    const response: AxiosResponse = yield call(api.post, `/bets`, { bets })
+    yield call(api.post, `/bets`, { bets })
 
     yield put(clearCart())
     yield put(saveBetsSuccess())

@@ -33,7 +33,6 @@ const RecentGames: React.FC = () => {
   const [filteredGames, setFilteredGames] = useState(myBets)
   const dispatch = useDispatch()
 
-  // console.log(myBets)
   useEffect(() => {
     const games: Game[] = []
     if (filters.length > 0) {
@@ -49,16 +48,19 @@ const RecentGames: React.FC = () => {
     }
   }, [filters, myBets])
 
+  const handleChangePage = async () => {
+    await dispatch(getBetsRequest(actualPage, myBets.length))
+  }
+
   useEffect(() => {
-    dispatch(resetSuccess())
     if (myBets.length === 0) {
-      dispatch(getBetsRequest(actualPage, myBets.length))
+      handleChangePage()
     }
   }, [])
 
-  const handleChangePage = () => {
-    dispatch(getBetsRequest(actualPage, myBets.length))
-  }
+  useEffect(() => {
+    dispatch(resetSuccess())
+  }, [myBets])
 
   return (
     <View style={{ flex: 1 }}>

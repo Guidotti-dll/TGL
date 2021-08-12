@@ -67,6 +67,7 @@ const reducer: Reducer<BetState> = (state = initialState, action) => {
     case Types.GET_BETS_FAILURE:
       return {
         ...state,
+        success: false,
         loading: false,
         error: action.payload.error,
       }
