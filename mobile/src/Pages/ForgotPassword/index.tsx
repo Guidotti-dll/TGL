@@ -1,13 +1,14 @@
 import { AntDesign } from '@expo/vector-icons'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React from 'react'
+import React, { useState } from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { showMessage } from 'react-native-flash-message'
 
 import { AuthStackParamList } from '../../Routes/Auth'
 import AuthContainer from '../../components/AuthContainer'
 import Input from '../../components/Input'
+import Loading from '../../components/Loading'
 import { colors } from '../../constants/colors'
 import api from '../../services/api'
 import { EmailSchema } from '../../utils/schemas'
@@ -28,6 +29,7 @@ type Props = {
 }
 
 const ForgotPassword = ({ navigation }: Props) => {
+  const [isLoading, setIsLoading] = useState(false)
   const {
     handleSubmit,
     control,
@@ -37,12 +39,13 @@ const ForgotPassword = ({ navigation }: Props) => {
   })
 
   const onSubmit: SubmitHandler<EmailProps> = async ({ email }) => {
+    setIsLoading(true)
     try {
       await api.post('/forgot-password', {
         email,
         redirect_url: 'http://localhost:3000/reset-password',
       })
-
+      setIsLoading(false)
       showMessage({
         message: 'Success',
         type: 'success',
@@ -52,6 +55,7 @@ const ForgotPassword = ({ navigation }: Props) => {
       })
       navigation.goBack()
     } catch (error) {
+      setIsLoading(false)
       showMessage({
         message: 'Error',
         type: 'danger',
@@ -63,6 +67,7 @@ const ForgotPassword = ({ navigation }: Props) => {
 
   return (
     <AuthContainer>
+      {isLoading && <Loading />}
       <Container>
         <Title>Reset Password</Title>
         <Form>

@@ -1,13 +1,14 @@
 import { AntDesign } from '@expo/vector-icons'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React from 'react'
+import React, { useState } from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { showMessage } from 'react-native-flash-message'
 
 import { AuthStackParamList } from '../../Routes/Auth'
 import AuthContainer from '../../components/AuthContainer'
 import Input from '../../components/Input'
+import Loading from '../../components/Loading'
 import { colors } from '../../constants/colors'
 import api from '../../services/api'
 import { SignUpSchema } from '../../utils/schemas'
@@ -30,6 +31,7 @@ type Props = {
 }
 
 const SignUp = ({ navigation }: Props) => {
+  const [isLoading, setIsLoading] = useState(false)
   const {
     handleSubmit,
     control,
@@ -44,6 +46,7 @@ const SignUp = ({ navigation }: Props) => {
     password,
     passwordConfirmation,
   }) => {
+    setIsLoading(true)
     try {
       await api.post('/users', {
         email,
@@ -59,8 +62,10 @@ const SignUp = ({ navigation }: Props) => {
           'Conta criada com sucesso!! Confirme sua conta no seu email',
         icon: 'success',
       })
+      setIsLoading(false)
       navigation.goBack()
     } catch (error) {
+      setIsLoading(false)
       error.response.data.forEach((error: { message: string }) => {
         showMessage({
           message: 'Error',
@@ -73,6 +78,7 @@ const SignUp = ({ navigation }: Props) => {
   }
   return (
     <AuthContainer>
+      {isLoading && <Loading />}
       <Container>
         <Title>Registration</Title>
         <Form>
