@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
-import { ToastAndroid } from 'react-native'
+import { showMessage } from 'react-native-flash-message'
 
 import { AuthStackParamList } from '../../Routes/Auth'
 import AuthContainer from '../../components/AuthContainer'
@@ -43,10 +43,21 @@ const ForgotPassword = ({ navigation }: Props) => {
         redirect_url: 'http://localhost:3000/reset-password',
       })
 
-      alert('Enviamos um link para o seu email para recuperar a sua senha!!')
+      showMessage({
+        message: 'Success',
+        type: 'success',
+        description:
+          'Enviamos um link para o seu email para recuperar a sua senha!!',
+        icon: 'success',
+      })
       navigation.goBack()
     } catch (error) {
-      alert(error.response.data.error.message)
+      showMessage({
+        message: 'Error',
+        type: 'danger',
+        description: error.response.data.error.message,
+        icon: 'danger',
+      })
     }
   }
 

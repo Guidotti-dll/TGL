@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect } from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
-import { showMessage, hideMessage } from 'react-native-flash-message'
+import { showMessage } from 'react-native-flash-message'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AuthStackParamList } from '../../Routes/Auth'

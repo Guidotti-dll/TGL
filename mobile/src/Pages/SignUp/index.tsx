@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
+import { showMessage } from 'react-native-flash-message'
 
 import { AuthStackParamList } from '../../Routes/Auth'
 import AuthContainer from '../../components/AuthContainer'
@@ -51,11 +52,22 @@ const SignUp = ({ navigation }: Props) => {
         password_confirmation: passwordConfirmation,
       })
 
-      alert('Conta criada com sucesso!! Confirme sua conta no seu email')
+      showMessage({
+        message: 'Success',
+        type: 'success',
+        description:
+          'Conta criada com sucesso!! Confirme sua conta no seu email',
+        icon: 'success',
+      })
       navigation.goBack()
     } catch (error) {
       error.response.data.forEach((error: { message: string }) => {
-        alert(error.message)
+        showMessage({
+          message: 'Error',
+          type: 'danger',
+          description: error.message,
+          icon: 'danger',
+        })
       })
     }
   }

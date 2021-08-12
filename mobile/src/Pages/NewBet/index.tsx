@@ -2,6 +2,7 @@ import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
+import { showMessage } from 'react-native-flash-message'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Game, Type } from '../../Interfaces/game'
@@ -71,7 +72,12 @@ const NewBet: React.FC = () => {
       tempArray = []
     }
     if (!filter) {
-      alert('Selecione um jogo antes para completa-lo')
+      showMessage({
+        message: 'Alert',
+        type: 'warning',
+        description: 'Selecione um jogo antes para completa-lo',
+        icon: 'warning',
+      })
       return
     }
     while (filter?.['max-number'] > tempArray.length) {
@@ -88,7 +94,12 @@ const NewBet: React.FC = () => {
 
   const addToCartHandler = () => {
     if (!filter) {
-      alert('Selecione um jogo antes para adicionar-lo ao carrinho')
+      showMessage({
+        message: 'Alert',
+        type: 'warning',
+        description: 'Selecione um jogo antes para adicionar-lo ao carrinho',
+        icon: 'warning',
+      })
       return
     }
     if (filter!['max-number'] === selectedNumbers.length) {
@@ -104,11 +115,14 @@ const NewBet: React.FC = () => {
       clearGameHandler()
       dispatch(DrawerActions.openDrawer())
     } else {
-      alert(
-        `Escolha ${selectedNumbers.length === 0 ? '' : 'mais'} ${
+      showMessage({
+        message: 'Alert',
+        type: 'warning',
+        description: `Escolha ${selectedNumbers.length === 0 ? '' : 'mais'} ${
           filter!['max-number'] - selectedNumbers.length
         } números antes para adicionar o jogo ao carrinho`,
-      )
+        icon: 'warning',
+      })
     }
   }
 

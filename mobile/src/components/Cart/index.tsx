@@ -7,6 +7,7 @@ import {
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
 import React, { useEffect } from 'react'
 import { TouchableOpacity, View } from 'react-native'
+import { showMessage } from 'react-native-flash-message'
 import { FlatList } from 'react-native-gesture-handler'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -54,7 +55,12 @@ const Cart = ({ navigation }: DrawerContentComponentProps) => {
       }
     })
     if (minValue > totalBetValue) {
-      alert(`O valor minimo deve ser de ${formatMoney(minValue)}`)
+      showMessage({
+        message: 'Alert',
+        type: 'warning',
+        description: `O valor minimo deve ser de ${formatMoney(minValue)}`,
+        icon: 'warning',
+      })
       return
     }
     dispatch(saveBetsRequest(bets))
@@ -62,7 +68,12 @@ const Cart = ({ navigation }: DrawerContentComponentProps) => {
 
   useEffect(() => {
     if (error) {
-      alert(error)
+      showMessage({
+        message: 'Error',
+        type: 'danger',
+        description: error,
+        icon: 'danger',
+      })
     }
     if (success) {
       navigation?.closeDrawer()
@@ -72,9 +83,13 @@ const Cart = ({ navigation }: DrawerContentComponentProps) => {
 
   useEffect(() => {
     if (bets.length !== 0) {
-      alert(
-        'Quando você saiu esqueceu de salvar suas apostas, então as mantivemos para você',
-      )
+      showMessage({
+        message: 'Info',
+        type: 'info',
+        description:
+          'Quando você saiu esqueceu de salvar suas apostas, então as mantivemos para você',
+        icon: 'info',
+      })
     }
   }, [])
 

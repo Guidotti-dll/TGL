@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { AxiosResponse } from 'axios'
-// import { toast } from 'react-toastify'
+import { showMessage } from 'react-native-flash-message'
 import { put, all, takeEvery, fork, call } from 'redux-saga/effects'
 
 import { Game, Type } from '../../Interfaces/game'
@@ -41,7 +41,12 @@ export function* handleSaveBets({
 
     yield put(clearCart())
     yield put(saveBetsSuccess())
-    // toast.success('Suas apostas foram feitas com sucesso!')
+    showMessage({
+      message: 'Success',
+      type: 'success',
+      description: 'Suas apostas foram feitas com sucesso!',
+      icon: 'success',
+    })
   } catch (error) {
     yield put(saveBetsFailure(error.message))
   }
