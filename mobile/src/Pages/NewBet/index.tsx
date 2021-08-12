@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Game, Type } from '../../Interfaces/game'
 import { GameButton, GameButtonText } from '../../components/Filter/styles'
 import Header, { HeaderProp } from '../../components/Header'
+import Loading from '../../components/Loading'
 import { colors } from '../../constants/colors'
 import { useTypes } from '../../hooks/useTypes'
 import { AppStore } from '../../store'
@@ -29,7 +30,9 @@ import {
 } from './style'
 
 const NewBet: React.FC = () => {
-  const { success } = useSelector<AppStore, BetState>(state => state.Bets)
+  const { success, loading } = useSelector<AppStore, BetState>(
+    state => state.Bets,
+  )
   const dispatchRedux = useDispatch()
   const { dispatch } = useNavigation<HeaderProp>()
   const { types } = useTypes()
@@ -152,6 +155,7 @@ const NewBet: React.FC = () => {
   return (
     <View style={{ flex: 1 }}>
       <Header />
+      {loading && <Loading />}
       <Container>
         <FilterContainer>
           <DescriptionContainer>
