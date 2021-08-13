@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Game } from '../../Interfaces/game'
 import Filter from '../../components/Filter'
 import Header from '../../components/Header'
+import Loading from '../../components/Loading'
 import { AppStore } from '../../store'
 import { BetState, getBetsRequest, resetSuccess } from '../../store/ducks/Bets'
 import { formatDate, formatMoney } from '../../utils/formatValue'
@@ -26,7 +27,7 @@ import {
 } from './styles'
 
 const RecentGames: React.FC = () => {
-  const { myBets, actualPage } = useSelector<AppStore, BetState>(
+  const { myBets, actualPage, loading } = useSelector<AppStore, BetState>(
     state => state.Bets,
   )
   const [filters, setFilters] = useState<string[]>([])
@@ -66,6 +67,7 @@ const RecentGames: React.FC = () => {
     <View style={{ flex: 1 }}>
       <Header />
       <Container>
+      {loading && <Loading />}
         <FilterContainer>
           <Title>Recent games</Title>
           <SubTitle>Filters</SubTitle>

@@ -13,6 +13,7 @@ import {
   getBetsRequest,
   getBetsSuccess,
   getBetsFailure,
+  resetSuccess,
 } from '../ducks/Bets'
 import { clearCart } from '../ducks/Cart'
 
@@ -74,6 +75,8 @@ export function* handleGetBets({ payload }: ReturnType<typeof getBetsRequest>) {
       const page = bets.length < 20 ? payload.page : payload.page + 1
 
       yield put(getBetsSuccess(bets, page))
+    } else {
+      yield put(resetSuccess())
     }
   } catch (error) {
     yield put(getBetsFailure(error.message))

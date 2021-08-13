@@ -80,7 +80,7 @@ const reducer: Reducer<BetState> = (state = initialState, action) => {
         actualPage: 1,
       }
     case Types.RESET_SUCCESS:
-      return { ...state, success: false }
+      return { ...state, loading: false, success: false }
 
     default:
       return state
