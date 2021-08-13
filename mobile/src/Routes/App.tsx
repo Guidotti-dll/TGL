@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
 
+import Account from '../Pages/Account'
 import RecentGames from '../Pages/RecentGames'
 import MyTabBar from '../components/TabNavigator'
 import NewBetScreen from './NewBet'
@@ -21,7 +22,7 @@ const AppTabScreen: React.FC = () => (
   >
     <AppTab.Screen name='Home' component={RecentGames} />
     <AppTab.Screen name='NewBetScreen' component={NewBetScreen} />
-    <AppTab.Screen name='Account' component={RecentGames} />
+    <AppTab.Screen name='Account' component={Account} />
   </AppTab.Navigator>
 )
 
