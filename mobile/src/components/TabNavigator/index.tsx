@@ -1,6 +1,7 @@
-import { SimpleLineIcons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { SimpleLineIcons } from '@expo/vector-icons'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import React from 'react'
+import { Image } from 'react-native'
 
 import { colors } from '../../constants/colors'
 import {
@@ -56,11 +57,7 @@ const MyTabBar: React.FC<BottomTabBarProps> = ({
                 testID={options.tabBarTestID}
                 onPress={onPress}
               >
-                <MaterialCommunityIcons
-                  name='poker-chip'
-                  size={59}
-                  color={colors.white}
-                />
+                <Image source={require('../../assets/bets.png')} />
               </NewBetButton>
             </NewBetButtonContainer>
           )
