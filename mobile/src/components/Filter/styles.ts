@@ -23,6 +23,7 @@ export const GameButton = styled.TouchableOpacity<ButtonProps>`
   background-color: ${({ isSelected, color }) =>
     isSelected ? color : colors.white};
   margin-right: 18px;
+  margin-bottom: 10px;
 `
 
 export const GameButtonText = styled.Text<ButtonTextProps>`
