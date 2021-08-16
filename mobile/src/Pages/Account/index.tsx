@@ -1,6 +1,6 @@
 import { AntDesign } from '@expo/vector-icons'
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { View } from 'react-native'
 import { showMessage } from 'react-native-flash-message'
@@ -27,6 +27,7 @@ const Account = () => {
   const {
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<ProfileInfos>({
     resolver: yupResolver(ProfileSchema),
@@ -65,6 +66,11 @@ const Account = () => {
     }
   }
 
+  useEffect(() => {
+    setValue('name', user.name)
+    setValue('email', user.email)
+  }, [])
+
   return (
     <View style={{ flex: 1 }}>
       {isLoading && <Loading />}
@@ -78,7 +84,7 @@ const Account = () => {
               render={({ field: { onChange, value } }) => (
                 <Input
                   onChangeText={onChange}
-                  value={value || user.name}
+                  value={value}
                   error={errors.email?.message}
                   placeholder='Name'
                   type='text'
@@ -92,7 +98,7 @@ const Account = () => {
               render={({ field: { onChange, value } }) => (
                 <Input
                   onChangeText={onChange}
-                  value={value || user.email}
+                  value={value}
                   error={errors.email?.message}
                   placeholder='Email'
                   type='email'
