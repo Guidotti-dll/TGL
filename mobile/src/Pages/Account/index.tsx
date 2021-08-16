@@ -85,7 +85,7 @@ const Account = () => {
                 <Input
                   onChangeText={onChange}
                   value={value}
-                  error={errors.email?.message}
+                  error={errors.name?.message}
                   placeholder='Name'
                   type='text'
                 />
