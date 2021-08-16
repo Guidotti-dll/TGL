@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect, useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
+import React, { useEffect, useState, useCallback } from 'react'
 import { FlatList, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -53,11 +54,11 @@ const RecentGames: React.FC = () => {
     await dispatch(getBetsRequest(actualPage, myBets.length))
   }
 
-  useEffect(() => {
+  useFocusEffect( useCallback(() => {
     if(myBets.length === 0){
       handleChangePage()
     }
-  }, [])
+  }, []))
 
   useEffect(() => {
     dispatch(resetSuccess())
