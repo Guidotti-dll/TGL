@@ -13,8 +13,11 @@ export const Types = {
   RESET_SUCCESS: 'bets/RESET_SUCCESS',
 }
 
+interface GameFull extends Game {
+  id: number
+}
 export interface BetState {
-  myBets: Game[]
+  myBets: GameFull[]
   actualPage: number
   loading: boolean
   error: string

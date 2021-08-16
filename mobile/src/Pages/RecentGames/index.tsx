@@ -27,6 +27,10 @@ import {
   GamesEmpty,
 } from './styles'
 
+interface GameFull extends Game {
+  id: number
+}
+
 const RecentGames: React.FC = () => {
   const { myBets, actualPage, loading } = useSelector<AppStore, BetState>(
     state => state.Bets,
@@ -36,11 +40,22 @@ const RecentGames: React.FC = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const games: Game[] = []
+    const games: GameFull[] = []
     if (filters.length > 0) {
       for (let index = 0; index < filters.length; index++) {
         games.push(...myBets.filter(game => game.type === filters[index]))
       }
+
+      games.sort((game1:GameFull , game2: GameFull)  => {
+        if (game1.id < game2.id) {
+          return -1;
+        }
+        if (game1.id > game2.id) {
+          return 1;
+        }
+        return 0;
+      })
+      
 
       setFilteredGames(
         games|| myBets
