@@ -48,6 +48,8 @@ const Account = () => {
         password,
       })
 
+      setValue('password', '')
+
       setIsLoading(false)
       showMessage({
         message: 'Success',
@@ -57,6 +59,7 @@ const Account = () => {
       })
     } catch (error) {
       setIsLoading(false)
+      console.log(error)
       showMessage({
         message: 'Error',
         type: 'danger',

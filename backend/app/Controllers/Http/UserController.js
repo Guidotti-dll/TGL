@@ -50,7 +50,7 @@ class UserController {
 
     const userTest = await User.findBy('email', data.email)
 
-    if (userTest.id !== user.id) {
+    if (userTest && userTest.id !== user.id) {
       return response.status(400).send({ error: { message: 'This email is already being used' } })
     }
 
